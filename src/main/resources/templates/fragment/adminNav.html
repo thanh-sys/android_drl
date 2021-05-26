@@ -1,0 +1,18 @@
+<th:block th:fragment="adminNav">
+    <div class="admin-nav">
+        <ul class="list-group">
+            <a th:href="@{/admin/}">
+                <li class="list-group-item active">Trang chủ</li>
+            </a>
+            <a th:href="@{/admin/listPoint}">
+                <li class="list-group-item">Duyệt điểm lớp</li>
+            </a>
+            <a th:href="@{/admin/user}">
+                <li class="list-group-item">Cập nhật hồ sơ sinh viên</li>
+            </a>
+            <a th:href="@{/admin/point}">
+                <li class="list-group-item">Xem điểm rèn luyện của trường</li>
+            </a>
+        </ul>
+    </div>
+</th:block>

@@ -1,0 +1,58 @@
+#main-content .tab-content label.formHeader {
+    font-size: 20px;
+    text-align: center;
+}
+
+#main-content .tab-content .checkbox {
+    margin-top: 10px;
+}
+
+#main-content .tab-content label.mainItem {
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+#main-content .tab-content .seperator {
+    border-bottom: 1px outset gray;
+}
+
+#main-content .tab-content .benchmark,
+#main-content .tab-content .plusPoint,
+#main-content .tab-content .minusPoint {
+    font-size: 20px;
+    width: 100%;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+}
+
+#main-content .tab-content .benchmark {
+    background-color: #17a2b8;
+}
+
+#main-content .tab-content .plusPoint {
+    background-color: #28a745;
+}
+
+#main-content .tab-content .minusPoint {
+    background-color: #dc3545;
+}
+
+#main-content .tab-content .formButton {
+    margin-top: 30px;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    text-shadow: none;
+    padding: 6px 18px;
+    box-shadow: 0 -1px 0 rgb(0 0 0 / 10%) inset;
+    font-size: 1.08em;
+    width: 100px;
+}
+
+[id^='totalPoint'] {
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

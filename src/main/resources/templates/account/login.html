@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <th:block id="css-resources">
+        <!-- Thêm những css riêng vào đây -->
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/account/account.css">
+    </th:block>
+</head>
+<body>
+
+<main id="main-content">
+    <div class="login-form">
+        <div class="login-title">
+            <span>Đăng nhập hệ thống</span>
+        </div>
+
+        <div class="box-content">
+            <div class="form-group">
+                <label for="InputEmail">Tên truy cập</label>
+                <input type="email" class="form-control" placeholder="Tên truy cập">
+            </div>
+            <div class="form-group">
+                <label for="InputPassword">Mật khẩu</label>
+                <input type="password" class="form-control" placeholder="Mật khẩu">
+            </div>
+            <button type="submit" class="btn btn-success">Đăng nhập</button>
+            <a href="#">Quên mật khẩu</a>
+        </div>
+
+    </div>
+</main>
+
+<th:block id="js-resources">
+    <!-- Viết js riêng vào đây -->
+</th:block>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <th:block id="css-resources">
+        <!-- Thêm những css riêng vào đây -->
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/admin.css}">
+    </th:block>
+
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="fas fa-pen-alt"></i>
+                    <span>Cập nhật thông tin sinh viên</span>
+                </h1>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-md-8">
+                    <div class="form-group row">
+                        <label for="inputMsv" class="col-sm-2 col-form-label">Mã sinh viên</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputMsv" placeholder="Nhập mã sinh viên" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Tên sinh viên</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputMsv" placeholder="Nhập tên sinh viên">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputEmail" placeholder="Nhập email">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputYear" class="col-sm-2 col-form-label">Năm học</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputYear" placeholder="Nhập năm học">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputAddress" class="col-sm-2 col-form-label">Địa chỉ</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputAddress" placeholder="Nhập số địa chỉ">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputAge" class="col-sm-2 col-form-label">Số tuổi</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputAge" placeholder="Nhập số tuổi">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputBirthDay" class="col-sm-2 col-form-label">Ngày sinh</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputBirthDay" placeholder="Nhập số ngày sinh">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputCountry" class="col-sm-2 col-form-label">Quốc gia</label>
+                        <div class="col-sm-10">
+                            <input type="" class="form-control" id="inputCountry" placeholder="Nhập số quốc gia">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+
+<th:block id="js-resources">
+    <!-- Viết những js riêng vào đây -->
+</th:block>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+      th:fragment="main-fragment(title,header,main,footer,cssResources,jsResources,mainContent)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title}">Page title</title>
+
+    <link rel="shortcut icon" th:href="@{/image/VNU.logo.jpg}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendor/fontawesome/css/all.css}"/>
+    <!-- Thêm những css chung ở đây -->
+
+    <!-- Components CSS -->
+    <th:block th:replace="${cssResources} ?: ~{}"></th:block>
+
+
+</head>
+
+<body>
+<th:block th:replace="~{fragment/header :: ${header}}"></th:block>
+
+<th:block th:replace="${mainContent} ?: ~{}">
+</th:block>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+
+<script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.4.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- Thêm những js chung ở đây -->
+
+<th:block th:replace="${jsResources} ?: ~{}"></th:block>
+
+</body>
+
+</html>

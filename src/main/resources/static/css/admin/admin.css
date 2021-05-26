@@ -1,0 +1,20 @@
+.admin-nav {
+    left: 0;
+    width: 15%;
+    height: 100vh;
+}
+
+
+.admin-nav .list-group .active {
+    background-color: rgb(9, 157, 94) !important;
+}
+
+.admin-nav a {
+    color: #fff;
+}
+
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+}

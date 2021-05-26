@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ</title>
+    <th:block id="css-resources">
+        <!-- Thêm những css riêng vào đây -->
+        <link rel="stylesheet" th:href="@{/css/main.css}">
+        <link rel="stylesheet" th:href="@{/css/admin.css}">
+    </th:block>
+
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="fas fa-home"></i>
+                    <span>Điểm rèn luyện của lớp</span>
+                </h1>
+                <form class="form-inline">
+                    <label for="my-1 mr-2" style="margin-right: 10px"> Mã lớp </label>
+                    <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                        <option selected>Chọn mã lớp...</option>
+                        <option value="1">Lớp QH-2017/CQ-CE</option>
+                        <option value="2">Lớp B</option>
+                        <option value="3">Lớp C</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Mã sinh viên</th>
+                    <th scope="col">Tên sinh viên</th>
+                    <th scope="col">Điểm tổng hợp</th>
+                    <th scope="col">Chi tiết</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">17020965</th>
+                    <td>Dương Tuấn Phương</td>
+                    <td>100</td>
+                    <td><a href="">Xem chi tiết</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">17020966</th>
+                    <td>Dương Văn A</td>
+                    <td>100</td>
+                    <td><a href="">Xem chi tiết</a></td>
+
+                </tr>
+                </tbody>
+                <tr>
+                    <th scope="row">17020965</th>
+                    <td>Dương Tuấn B</td>
+                    <td>100</td>
+                    <td><a href="">Xem chi tiết</a></td>
+
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+
+<th:block id="js-resources">
+    <!-- Viết những js riêng vào đây -->
+</th:block>
+</body>
+</html>
