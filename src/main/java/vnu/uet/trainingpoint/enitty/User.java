@@ -30,15 +30,15 @@ public class User {
 
     public User(String username) {
         this.username = username;
-        this.password=username;
-        this.active= true;
-        this.roles="ROLE_STUDENT";
+        this.password = username;
+        this.active = true;
+        this.roles = "ROLE_STUDENT";
     }
 
     public User(String username, String roles) {
         this.username = username;
-        this.password= username;
-        this.active= true;
+        this.password = username;
+        this.active = true;
         this.roles = roles;
     }
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+        <link rel="stylesheet" th:href="@{/vendor/DataTable/datatables.min.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/student/studentListPoint.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/DataTable/datatables.min.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/studentNav :: ${studentNav}}"></th:block>
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left col-sm-8">
+                    <i class="fas fa-home"></i>
+                    <span>Điểm rèn luyện và điểm tích lũy của bản thân</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Năm học</th>
+                    <th scope="col">Học kỳ</th>
+                    <th scope="col">Xếp loại</th>
+                    <th scope="col">Điểm rèn luyện</th>
+                    <th scope="col">Trạng thái</th>
+
+                </tr>
+                </thead>
+                <tbody id="listOfStudentPoint">
+                <tr th:each="list:${listEvaluation}">
+                    <td th:text="${list.year}"></td>
+                    <td th:text="${list.semester}"></td>
+                    <td th:text="${list.graded}"></td>
+                    <td th:text="${list.totalPoint}"></td>
+                    <td th:text="${list.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

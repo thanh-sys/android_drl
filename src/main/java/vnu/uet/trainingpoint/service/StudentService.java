@@ -12,6 +12,7 @@ import vnu.uet.trainingpoint.repository.ClassesRepository;
 import vnu.uet.trainingpoint.repository.StudentRepository;
 import vnu.uet.trainingpoint.repository.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,6 +37,27 @@ public class StudentService {
     @Autowired
     public void setStudentRepository(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+    }
+
+    public List<Student> findAll() {
+        return studentRepository.findAll();
+    }
+
+    public List<Student> findAllByClasses(String classes) {
+        return studentRepository.findAllByClasses(classes);
+    }
+
+    public Student findByUsername(String username) {
+        return studentRepository.findByUsername(username);
+    }
+
+    public Student findUserById(long id) {
+        Optional<Student> student = studentRepository.findById(id);
+        return student.get();
+    }
+
+    public void save(Student student) {
+        studentRepository.save(student);
     }
 
     public ResponseEntity<StudentDTO> findById(Long id) {
@@ -64,10 +86,10 @@ public class StudentService {
             student.setFullName(studentDTO.getFullName());
             student.setAddress(studentDTO.getAddress());
             student.setCountry(studentDTO.getCountry());
-            student.setEmail(studentDTO.getUsername()+"@vnu.edu.vn");
+            student.setEmail(studentDTO.getUsername() + "@vnu.edu.vn");
             student.setBirthday(studentDTO.getBirthday());
             student.setUser(user);
-            Optional<Classes> classesOptional= classesRepository.getByName(studentDTO.getClassName());
+            Optional<Classes> classesOptional = classesRepository.getByName(studentDTO.getClassName());
             classesOptional.ifPresent(student::setClasses); //nếu class tồn tại, add vào class
             studentRepository.save(student);
             return new ResponseEntity<>(

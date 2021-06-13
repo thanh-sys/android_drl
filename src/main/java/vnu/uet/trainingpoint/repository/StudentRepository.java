@@ -15,5 +15,11 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
             "or s.classes.name like %?2%" +
             "or s.classes.name like %?3%" +
             "or s.classes.name like %?4%")
-    List<Student> getListStudentCreatedForm(Integer year1, Integer year2,Integer year3,Integer year4);
+    List<Student> getListStudentCreatedForm(Integer year1, Integer year2, Integer year3, Integer year4);
+
+    @Query(value = "select s from Student s where s.classes.name=?1")
+    List<Student> findAllByClasses(String classes);
+
+    @Query(value = "select s from Student  s where  s.user.username= ?1 ")
+    Student findByUsername(String username);
 }

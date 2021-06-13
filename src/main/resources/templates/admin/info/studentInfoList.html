@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+        <link rel="stylesheet" th:href="@{/vendor/DataTable/datatables.min.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/admin/studentInfoList.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/DataTable/datatables.min.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+
+    <div class="main">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th>Email</th>
+                    <th>Ngày sinh</th>
+                    <th>Lớp</th>
+                    <th>Địa chỉ</th>
+                    <th id="updateHeader">Cập nhật</th>
+                </tr>
+                </thead>
+                <tbody id="studentInfoList">
+                <tr th:each="list : ${list}">
+                    <td class="studentID" th:text="${list.user.username}"></td>
+                    <td class="studentName" th:text="${list.fullName}"></td>
+                    <td class="studentEmail" th:text="${list.email}"></td>
+                    <td class="studentBirthday" th:text="${list.birthday}"></td>
+                    <td class="studentClass" th:text="${list.classes.name}"></td>
+                    <td class="studentAddress" th:text="${list.address}"></td>
+                    <td>
+                        <a th:href="@{/admin/studentDetailInfo/{id}(id = ${list.id})}">
+                            <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                    data-placement="top" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

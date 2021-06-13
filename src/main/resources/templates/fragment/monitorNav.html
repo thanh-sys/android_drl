@@ -1,0 +1,30 @@
+<th:block th:fragment="nav">
+    <div class="main-nav">
+        <ul class="navigation">
+            <li class="active">
+                <a th:href="@{/monitor}">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/monitor/editForm}">
+                    <i class="fab fa-stack-overflow"></i>
+                    <span>Điền phiếu rèn luyện</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/monitor/studentPoint}">
+                    <i class="fab fa-stack-overflow"></i>
+                    <span>Xem điểm cá nhân</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/monitor/classList}">
+                    <i class="fab fa-stack-overflow"></i>
+                    <span>Đánh giá điểm rèn luyện của lớp</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</th:block>

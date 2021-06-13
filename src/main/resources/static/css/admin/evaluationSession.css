@@ -1,0 +1,171 @@
+a:hover, a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+.tab {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tab .nav-tabs {
+    background-color: transparent;
+    border: none;
+}
+
+.tab .nav-tabs li a {
+    color: #222;
+    background: transparent;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 15px 15px 10px;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease 0s;
+}
+
+.tab .nav-tabs li:last-child a {
+    margin-right: 0;
+}
+
+.tab .nav-tabs li a:hover,
+.tab .nav-tabs li.active a {
+    color: #222;
+    background: #fff;
+    border: none;
+}
+
+.tab .nav-tabs li.active a {
+    color: rgb(9, 157, 94);
+}
+
+.tab .nav-tabs li a:before,
+.tab .nav-tabs li a:after {
+    content: "";
+    background-color: #d1d1d1;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.5s ease 0s;
+}
+
+.tab .nav-tabs li a:after {
+    background-color: rgb(9, 157, 94);
+    height: 100%;
+    opacity: 0;
+}
+
+.tab .nav-tabs li.active a:before,
+.tab .nav-tabs li a:hover:before {
+    height: 100%;
+    opacity: 0;
+}
+
+.tab .nav-tabs li.active a:after,
+.tab .nav-tabs li a:hover:after {
+    height: 3px;
+    opacity: 1;
+}
+
+.tab .tab-content {
+    color: #555;
+    background: #fff;
+    font-size: 15px;
+    letter-spacing: 1px;
+    line-height: 23px;
+    padding: 20px;
+}
+
+.tab .tab-content h3 {
+    color: #222;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 7px 0;
+}
+
+#newSession .list {
+    margin-top: 30px;
+}
+
+.createBtn {
+    padding: 20px 20px;
+}
+
+#newSession .list li {
+    margin-top: 30px;
+}
+
+#newSession .list li,
+#newSession .list li .uploadBlock {
+    display: flex;
+    align-items: center;
+}
+
+
+#newSession .list li .uploadBlock .inputFile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#newSession .list li .uploadBlock .inputFile + #newSession .list li .uploadBlock label {
+    max-width: 80%;
+    font-size: 1.25rem;
+    /* 20px */
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+#newSession .list li .uploadBlock .inputFile:focus + #newSession .list li .uploadBlock label,
+#newSession .list li .uploadBlock .inputFile.has-focus + #newSession .list li .uploadBlock label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+/* #newSession .list li .uploadBlock .inputFile + #newSession .list li .uploadBlock label * {
+    pointer-events: none;
+} */
+
+#newSession .list li .uploadBlock .inputFile + #newSession .list li .uploadBlock label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -4px;
+    margin-right: 4px;
+}
+
+#newSession .list li .uploadBlock .checkUpload {
+    color: rgb(9, 157, 94);
+    display: none;
+}
+
+/* #newSession .list li .uploadBlock .inputFile-1 + #newSession .list li .uploadBlock label {
+    color: #d3394c;
+    border: 2px solid currentColor;
+}
+
+#newSession .list li .uploadBlock .inputFile-1:focus + #newSession .list li .uploadBlock label,
+#newSession .list li .uploadBlock .inputFile-1.has-focus + #newSession .list li .uploadBlock label,
+#newSession .list li .uploadBlock .inputFile-1 + #newSession .list li .uploadBlock label:hover {
+    background-color: #722040;
+} */
+

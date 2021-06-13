@@ -1,20 +1,64 @@
-.admin-nav {
-    left: 0;
-    width: 15%;
-    height: 100vh;
-}
-
-
-.admin-nav .list-group .active {
-    background-color: rgb(9, 157, 94) !important;
-}
-
-.admin-nav a {
-    color: #fff;
-}
-
-
 .page-header {
     display: flex;
     justify-content: space-between;
 }
+
+#main-content .tab-content input#approve,
+#main-content .tab-content input#notApprove {
+    width: 30px;
+    height: 30px;
+}
+
+#main-content .tab-content .approveLabel {
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+#main-content .tab-content input#reason {
+    display: none;
+    width: 100%;
+    border-style: inset;
+}
+
+#main-content #noticeList .searchBlock {
+    display: flex;
+    align-items: center;
+}
+
+#main-content #noticeList .searchBlock label {
+    font-size: 20px;
+    margin-top: 7px;
+}
+
+#main-content #noticeList .searchBlock #searchNoticeFile {
+    border-style: inset;
+}
+
+#main-content #noticeList .list .fileName {
+    font-size: 25px;
+    color: black;
+    transition: 0.3s;
+}
+
+#main-content #noticeList .list .fileName:hover {
+    margin-left: 10px;
+}
+
+.search {
+    border: 1px solid #111;
+    padding: 3px 5px;
+}
+
+.searchLabel {
+    font-weight: 700;
+    margin: auto;
+    font-size: 16px;
+}
+
+#studentInfoList .detailLink:hover,
+#classListOfStudent .detailLink:hover,
+#classListOfAdmin .detailStudentList:hover,
+#classListOfConsultant .evaluationFormDetail:hover {
+    color: rgb(9, 157, 94);
+}
+

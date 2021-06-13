@@ -1,44 +1,61 @@
-#main-content .tab-content label.formHeader {
-    font-size: 20px;
+.tab-content label.formHeader {
+    font-size: 20px !important;
     text-align: center;
+    font-weight: 1000;
 }
 
-#main-content .tab-content .checkbox {
+.tab-content .checkbox {
     margin-top: 10px;
 }
 
-#main-content .tab-content label.mainItem {
-    font-weight: 700;
-    margin-top: 20px;
+.tab-content .form-group.row label {
+    font-size: 16px;
 }
 
-#main-content .tab-content .seperator {
+.tab-content .heading1 {
+    font-weight: 1000;
+    margin-top: 20px;
+    font-size: 20px !important;
+}
+
+.tab-content .heading2 {
+    font-weight: 700;
+    font-size: 18px !important;
+}
+
+.tab-content .seperator {
     border-bottom: 1px outset gray;
 }
 
-#main-content .tab-content .benchmark,
-#main-content .tab-content .plusPoint,
-#main-content .tab-content .minusPoint {
-    font-size: 20px;
+.tab-content .benchmark,
+.tab-content .plusPoint,
+.tab-content .minusPoint {
+    font-size: 18px;
     width: 100%;
     height: 33px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-#main-content .tab-content .benchmark {
-    background-color: #17a2b8;
+.tab-content .benchmark {
+    background-color: #0091eaa8;
+    color: white;
 }
 
-#main-content .tab-content .plusPoint {
-    background-color: #28a745;
+.tab-content .plusPoint {
+    background-color: #43a047cc;
+    color: white;
 }
 
-#main-content .tab-content .minusPoint {
-    background-color: #dc3545;
+.tab-content .minusPoint {
+    /* background-color: rgb(220, 53, 69); btn-danger */
+    background-color: #f443369e;
+    color: white;
 }
 
-#main-content .tab-content .formButton {
+.tab-content .formButton {
     margin-top: 30px;
     color: #fff;
     border: none;
@@ -50,9 +67,96 @@
     width: 100px;
 }
 
-[id^='totalPoint'] {
+.tab-content .monitorEvaluation {
+    border-left: 1px solid white !important;
+}
+
+ #rank,
+ #evaluateRank {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.tab-content .totalAndRank {
+    margin-top: -25px;
+}
+
+[id^='totalPoint'],
+[id^='total'],
+[id^='evaluateTotal'] {
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    font-size: 18px;
+}
+
+.evaluationFormFooter {
+    bottom: -1px;
+}
+
+.evaluationFormFooter .tab-content {
+    padding-top: 0px !important;
+}
+
+.evaluationFormFooter .tab-content .consultantInfo {
+    display: flex;
+}
+
+.evaluationFormFooter .tab-content .consultantInfo label {
+    font-size: 20px;
+}
+
+.evaluationFormFooter .tab-content .consultantInfo #consultantName {
+    font-size: 20px;
+    padding-left: 5px;
+}
+
+.studentPoint {
+  position: fixed;
+  right: 35px;
+  bottom: 74px;
+  left: 0;
+  background: white;
+  padding-left: 15%;
+}
+
+.monitorPoint {
+  position: fixed;
+  right: 35px;
+  bottom: 74px;
+  left: 0;
+  background: white;
+  padding-left: 15%;
+}
+
+.consultantPoint {
+  position: fixed;
+  right: 35px;
+  bottom: 74px;
+  left: 0;
+  background: white;
+  padding-left: 15%;
+}
+
+.totalResult {
+  margin: 1rem 0;
+}
+@media only screen and (min-width: 1920px) {
+  .studentPoint {
+    right: 128px;
+  }
+  .monitorPoint {
+    right: 35px;
+  }
+  .consultantPoint {
+    right: 35px;
+  }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1919px) {
+  .studentPoint {
+    right: 20px;
+  }
 }

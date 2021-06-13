@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/evaluationSession.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/evaluationSession.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/js/admin/uploadFile.js}"></script>
+        <!-- <script type="text/javascript" th:src="@{/vendor/bootstrap-4.3.1/dist/js/bootstrap.min.js}"></script> -->
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-1.12.0.min.js}"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="fas fa-home"></i>
+                    <span>Các đợt đánh giá điểm rèn luyện</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="tab" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#Section1" aria-controls="home" class="active" role="tab" data-toggle="tab">Tạo đợt đánh giá mới</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Các đợt đánh giá trước</a>
+                    </li>
+                </ul>
+                <div class="tab-content tabs" style="border: 1px solid rgb(9, 157, 94); border-top: none;">
+                    <div role="tabpanel" class="tab-pane in active" id="Section1">
+                        <div class="tab-content" style="border: none;">
+                            <div class="col-sm-12">
+                                <form action="#" th:action="@{/saveNewSemester}" th:object="${newSemesterInfoDTO}" method="post">
+                                    <div class="form-group row">
+                                        <label for="inputSchoolYear" class="col-sm-2 col-form-label">Năm học</label>
+                                        <input class="col-sm-4" type="text" th:field="*{year}" id="inputSchoolYear" disabled>
+                                    </div>
+        
+                                    <div class="form-group row">
+                                        <label for="inputSemester" class="col-sm-2 col-form-label">Học kỳ</label>
+                                        <input class="col-sm-4" type="text" th:field="*{semesterIorII}" id="inputSemester" disabled>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label for="inputDeadline" class="col-sm-2 col-form-label">Thời gian Đánh giá điểm rèn luyện cúa Sinh viên</label>
+                                        <input class="col-sm-4" type="text" th:field="*{deadlineDay}" id="inputDeadline">
+                                    </div>
+
+                                    <div style="border-bottom: 1px outset gray;"></div>
+
+                                    <div class="col-sm-12" style="margin-top: 30px">
+                                        <h4>Thêm các danh sách thông báo từ Nhà trường</h4>
+                                        <div id="newSession">
+                                            <div class="col-sm-12" style="margin-top: 20px;">
+                                                <div class="searchBlock col-sm-6" style="display: flex;">
+                                                    <label for="searchFileName" class="col-sm-3 searchLabel">Tìm kiếm</label>
+                                                    <input class="search col-sm-9" id="searchFileName">
+                                                </div>
+                                            </div>
+        
+                                            <ul class="list col-sm-12" id="newUploadList"></ul>
+                                        </div>
+                                    </div>
+
+                                    <div style="border-bottom: 1px outset gray;"></div>
+
+                                    <div class="col-sm-12">
+                                        <input type="hidden" th:field="*{semesterNo}">
+                                        <div class="row" th:unless="*{exists}">
+                                            <div class="col-sm-9"></div>
+                                            <div class="createBtn col-sm-3">
+                                                <button class="btn btn-primary"> Tạo kỳ đánh giá</button>
+                                            </div>
+                                        </div>
+                                        <div class="row" th:if="*{exists}">
+                                            <div class="col-sm-9"></div>
+                                            <div class="createBtn col-sm-3">
+                                                <button class="btn btn-secondary" disabled>Kỳ này đã được tạo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="Section2">
+                       <div id="noticeList">
+                           <div style="display: flex;">
+                               <div class="searchBlock col-sm-6">
+                                   <label for="searchNoticeFile" class="col-sm-3">Tìm kiếm</label>
+                                   <input class="search col-sm-9" id="searchNoticeFile">
+                               </div>
+                           </div>
+                           <ul class="list col-sm-12" id="oldNoticeList"></ul>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

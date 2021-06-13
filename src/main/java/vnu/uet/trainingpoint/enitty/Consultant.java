@@ -26,7 +26,7 @@ public class Consultant {
 
     public Consultant(String fullName, String faculty, User user) {
         this.fullName = fullName;
-        this.email = user.getUsername()+"@vnu.edu.vn";
+        this.email = user.getUsername() + "@vnu.edu.vn";
         this.faculty = faculty;
         this.user = user;
     }

@@ -1,0 +1,16 @@
+.footer {
+    background-color: transparent;
+    height: 74px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #e7e7e7;
+    z-index: 11;
+}
+
+.footer .text {
+    height: 100%;
+    padding-top: 6px;
+    margin-left: 15%;
+    border-left: 2px solid rgb(9, 157, 94);
+}

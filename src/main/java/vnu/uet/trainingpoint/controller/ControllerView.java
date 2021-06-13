@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ControllerView {
 
     @GetMapping("/demoUploadFile")
-    public String indexUploadFile(){
+    public String indexUploadFile() {
         return "upload/upload";
     }
 }

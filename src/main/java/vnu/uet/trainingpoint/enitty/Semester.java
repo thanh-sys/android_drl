@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,7 +21,10 @@ public class Semester {
     private Long id;
     private Integer semesterNo;
 
-    public Semester(Integer semesterNo) {
+    private LocalDate deadline;
+
+    public Semester(Integer semesterNo, LocalDate deadline) {
         this.semesterNo = semesterNo;
+        this.deadline = deadline;
     }
 }

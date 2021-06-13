@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET Training Point</title>
+
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/studentNav :: ${studentNav}}"></th:block>
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ Sinh viên</span>
+                </h1>
+            </div>
+        </div>
+        <div class="col-sm-12 box">
+            <h3>Thông báo - Hướng dẫn</h3>
+            <ul class="nav nav-responsive nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#retab1">Trường Đại học Công nghệ</a></li>
+            </ul>
+            <div class="tab-content">
+                <h4>Dành cho Toàn trường</h4>
+                <ul>
+                    <li>
+						<a href="#">Thực hiện các biện pháp phòng chống dịch bệnh Covid-19 theo chỉ đạo của Chủ tịch UBND thành phố Hà Nội và của ĐHQGHN</a></li>
+                    <li>
+                        <a href="https://vnu.edu.vn/ttsk/?C1667/N28164/Tiep-tuc-trien-khai-nhiem-vu-day---hoc-truc-tuyen-va-tang-cuong-quyet-liet-cac-bien-phap-phong,-chong-dich-Covid-19-tai-dHQGHN.htm">Tiếp tục triển khai nhiệm vụ dạy - học trực tuyến</a></li>
+                </ul>
+
+                <h4>Dành cho sinh viên trong trường</h4>
+                <ul>
+                    <li><a href="#">Hướng dẫn sử dụng Hệ thống đánh gia điểm rèn luyện</a></li>
+                    <li><a th:href="@{/student/addForm}">Điển phiếu rèn luyện</a></li>
+                    <li><a th:href="@{/student/studentPoint}">Xem điểm rèn luyện bản thân</a></li>
+                    <li><a href="https://uet.vnu.edu.vn/ke-hoach-chuc-thi-ket-thuc-hoc-ky-ii-nam-hoc-2020-2021-dot-1/">Tổ chức thi học kỳ II năm học 2020-2021</a></li>
+                </ul>
+
+                <div class="line"></div>
+                <div class="tab-pane active">
+                    <p>- Thời gian hoàn thiện phiếu đánh giá của sinh viên đến hết ngày <b th:text="${@environment.getProperty('cache.deadline')}"></b></p>
+                    <p>- Các giáo viên cần tổng hợp phiếu đánh giá của lớp sớm nhất có thể. </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

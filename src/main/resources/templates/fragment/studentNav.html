@@ -1,0 +1,21 @@
+<th:block th:fragment="nav">
+    <div class="main-nav">
+        <ul class="navigation">
+            <li><a th:href="@{/student}">
+                <i class="fas fa-home"></i>
+                <span>Trang chủ</span></a>
+            </li>
+            </li>
+            <li><a th:href="@{/student/editForm}">
+                <i class="fab fa-stack-overflow"></i>
+                <span>Điền phiếu rèn luyện</span>
+            </a>
+            </li>
+            <li><a th:href="@{/student/studentPoint}">
+                <i class="fab fa-stack-overflow"></i>
+                <span> Xem điểm cá nhân</span>
+            </a>
+            </li>
+        </ul>
+    </div>
+</th:block>

@@ -1,28 +1,31 @@
-<th:block th:fragment="full-header">
+<th:block th:fragment="full-header" xmlns:th="http://www.w3.org/1999/xhtml">
     <header class="header container-sm">
-
         <nav class="navbar navbar-default">
-            <div class="header-logo">
-                <a href="/">
-                    <img th:src="@{/image/logo.png}" alt="VNU" height="78">
-                </a>
-                <div class="header-title ">
-                    <h3>CỔNG THÔNG TIN ĐÀO TẠO ĐẠI HỌC</h3>
-                </div>
-            </div>
-
-            <ul class="nav">
-                <li class="dropdown dark">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span> Xin chào : <strong>Dương Tuấn Phương</strong> <strong> - [17020965]</strong></span>
+            <div class="header-logo col-sm-12">
+                <div class="col-sm-2">
+                    <a href="#">
+                        <img th:src="@{/image/logo.png}" alt="VNU" height="78">
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a href=""> <i class="fas fa-user"></i> Cập nhật tài khoản</a></li>
-                        <li class="divider"></li>
-                        <li><a href=""><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
-                    </ul>
-                </li>
-            </ul>
+                </div>
+                <div class="header-title col-sm-7">
+                    <h3>HỆ THỐNG ĐÁNH GIÁ ĐIỂM RÈN LUYỆN</h3>
+                </div>
+                <ul class="nav col-sm-3" style="justify-content: flex-end;">
+                    <li class="dropdown dark">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span> Xin chào : <strong
+                                    th:text="${session.fullName}"></strong> <strong>
+                                    [<span id="studentLoginID"
+                                           th:text="${session.username}"></span>]</strong></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href=""> <i class="fas fa-user-cog"></i> Cập nhật tài khoản</a></li>
+                            <li class="divider"></li>
+                            <li><a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </header>
 </th:block>

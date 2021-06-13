@@ -31,6 +31,10 @@ public class ConsultantService {
         this.consultantRepository = consultantRepository;
     }
 
+    public String getNameByUsername(String username) {
+        return consultantRepository.findByEmail(username + "@vnu.edu.vn").get().getFullName();
+    }
+
     public ResponseEntity<ConsultantDTO> find(Long id) {
         Optional<Consultant> consultantOptional = consultantRepository.findById(id);
         return consultantOptional.map(consultant -> new ResponseEntity<>(
@@ -59,7 +63,7 @@ public class ConsultantService {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<ConsultantDTO> update(Long id,ConsultantDTO consultantDTO) {
+    public ResponseEntity<ConsultantDTO> update(Long id, ConsultantDTO consultantDTO) {
         Optional<Consultant> consultantOptional =
                 consultantRepository.findById(id);
         return consultantOptional.map(consultant -> {
@@ -70,21 +74,21 @@ public class ConsultantService {
             // nếu username chưa tồn tại trong DB
             if (!userRepository.existsById(consultantDTO.getUsername())) {
 //                    userRepository.delete(student.getUser());// xóa user cũ
-                User user = new User(consultantDTO.getUsername(),"ROLE_CONSULTANT");
+                User user = new User(consultantDTO.getUsername(), "ROLE_CONSULTANT");
                 userRepository.save(user);//thêm user mới
                 consultant.setUser(user);
                 consultant.setEmail(user.getUsername() + "@vnu.edu.vn");
             }
             consultantRepository.save(consultant);
             return new ResponseEntity<>(new ConsultantDTO(
-                    consultant.getFullName() ,
+                    consultant.getFullName(),
                     consultant.getFaculty(),
                     consultant.getUser().getUsername()), HttpStatus.OK);
-        }).orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    public ResponseEntity<ConsultantDTO> delete(Long id){
-        Optional<Consultant> consultantOptional= consultantRepository
+    public ResponseEntity<ConsultantDTO> delete(Long id) {
+        Optional<Consultant> consultantOptional = consultantRepository
                 .findById(id);
         return consultantOptional.map(consultant -> {
             consultantRepository.delete(consultant);
@@ -94,7 +98,7 @@ public class ConsultantService {
                     consultant.getFaculty(),
                     consultant.getUser().getUsername()
             ), HttpStatus.OK);
-        }).orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 }

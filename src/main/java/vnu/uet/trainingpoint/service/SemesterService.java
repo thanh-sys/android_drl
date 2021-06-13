@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vnu.uet.trainingpoint.enitty.EvaluationForm;
+import vnu.uet.trainingpoint.enitty.EvaluationFormOfClassPresident;
 import vnu.uet.trainingpoint.enitty.Semester;
 import vnu.uet.trainingpoint.enitty.Student;
 import vnu.uet.trainingpoint.model.DisciplinaryDecision;
@@ -15,8 +16,10 @@ import vnu.uet.trainingpoint.repository.EvaluationFormRepository;
 import vnu.uet.trainingpoint.repository.SemesterRepository;
 import vnu.uet.trainingpoint.repository.StudentRepository;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class SemesterService {
@@ -42,14 +45,16 @@ public class SemesterService {
         this.semesterRepository = semesterRepository;
     }
 
-    public ResponseEntity<SemesterDTO> find(Integer semesterNo) {
-        Optional<Semester> semesterOptional = semesterRepository.findBySemesterNo(semesterNo);
-        return semesterOptional.map(semester -> new ResponseEntity<>(
-                new SemesterDTO(semester.getSemesterNo()), HttpStatus.OK
-        )).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public String getDeadline(Integer semesterNo) {
+        return findBySemesterNo(semesterNo).get().getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
-    public ResponseEntity<SemesterDTO> add(Integer semesterNo) { //tạo học kì
+    public Optional<Semester> findBySemesterNo(Integer semesterNo){
+        return semesterRepository.findBySemesterNo(semesterNo);
+    }
+
+    public ResponseEntity<SemesterDTO> add(SemesterDTO semesterDTO) { //tạo học kì
+        Integer semesterNo = semesterDTO.getSemesterNo();
         Optional<Semester> semesterOptional = semesterRepository.findBySemesterNo(semesterNo);
         if (!semesterOptional.isPresent()) {
             //tạo form điền
@@ -73,38 +78,69 @@ public class SemesterService {
             List<Student> students = studentRepository.getListStudentCreatedForm(1956 + x - 1,
                     1956 + x - 2, 1956 + x - 3, 1956 + x - 4); // lần lượt là k62, 61, 60, 59
             // năm vào trường là 2017, 2016, 2015, 2014
-            Semester semester= new Semester(semesterNo); // lưu học kỳ
+            Semester semester = new Semester(semesterNo, semesterDTO.getDeadline()); // lưu học kỳ
+            System.out.println("Create semester " + semesterNo + " success! ");
             semesterRepository.save(semester);
             // duyệt list các sinh viên sẽ được tạo phiếu điểm rèn luyện trong kỳ này
-            for(Student student: students){
-                EvaluationForm evaluationForm= createEvaluationFormDefault(); // tạo mặc định
+            for (Student student : students) {
+                EvaluationForm evaluationForm = createEvaluationFormDefault(); // tạo mặc định
                 evaluationForm.setStudent(student);
                 evaluationForm.setSemester(semester);
                 evaluationForm.setStudent(student);
                 evaluationFormRepository.save(evaluationForm);// lưu lại
-
-                System.out.println("Create full form SV semester: "+ semesterNo);
             }
 
-            return new ResponseEntity<>(new SemesterDTO(semesterNo), HttpStatus.OK);
+            return new ResponseEntity<>(new SemesterDTO(semesterNo, semesterDTO.getDeadline()), HttpStatus.OK);
         } else {
             return ResponseEntity.status(400).build();
         }
     }
 
-    public ResponseEntity<SemesterDTO> delete(Integer semesterNo){
+    public ResponseEntity<SemesterDTO> addSuccess(SemesterDTO semesterDTO) { //tạo học kì
+        Integer semesterNo = semesterDTO.getSemesterNo();
+        Optional<Semester> semesterOptional = semesterRepository.findBySemesterNo(semesterNo);
+        if (!semesterOptional.isPresent()) {
+            if (semesterNo % 3 == 0) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            int x = semesterNo / 3 + 1;
+            List<Student> students = studentRepository.getListStudentCreatedForm(1956 + x - 1,
+                    1956 + x - 2, 1956 + x - 3, 1956 + x - 4);
+            // năm vào trường là 2017, 2016, 2015, 2014
+            Semester semester = new Semester(semesterNo, semesterDTO.getDeadline());
+            System.out.println("Create semester history " + semesterNo + " success! ");
+            semesterRepository.save(semester);
+
+            Random random = new Random();
+            for (Student student : students) {
+                EvaluationForm evaluationForm = createEvaluationFormDefault();
+                evaluationForm.setStudent(student);
+                evaluationForm.setSemester(semester);
+                evaluationForm.setStudent(student);
+                evaluationForm.setTotalPoint(random.nextInt(50) + 48);
+                evaluationForm.setStatus(Status.SUCCESS);
+                evaluationFormRepository.save(evaluationForm);// lưu lại
+            }
+
+            return new ResponseEntity<>(new SemesterDTO(semesterNo, semesterDTO.getDeadline()), HttpStatus.OK);
+        } else {
+            return ResponseEntity.status(400).build();
+        }
+    }
+
+    public ResponseEntity<SemesterDTO> delete(Integer semesterNo) {
         Optional<Semester> semesterOptional = semesterRepository.findBySemesterNo(semesterNo);
         return semesterOptional.map(semester -> {
 
             //list form SV được tạo trong kỳ semesterNo
-            List<EvaluationForm> evaluationForms= evaluationFormRepository.getListBySemester(semesterNo);
-            for(EvaluationForm e: evaluationForms){
+            List<EvaluationForm> evaluationForms = evaluationFormRepository.getListBySemester(semesterNo);
+            for (EvaluationForm e : evaluationForms) {
                 evaluationFormRepository.delete(e);  // xóa các form được tạo ở kỳ đó
             }
             semesterRepository.delete(semester);
 
-            return new ResponseEntity<>(new SemesterDTO(semesterNo), HttpStatus.OK);
-        }).orElseGet(()-> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            return new ResponseEntity<>(new SemesterDTO(semester.getSemesterNo(), semester.getDeadline()), HttpStatus.OK);
+        }).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     private EvaluationForm createEvaluationFormDefault() {
@@ -142,9 +178,12 @@ public class SemesterService {
         e.setTham_gia_NCKH(false);
         e.setDat_giai_NCKH(false);
         e.setKet_nap_Dang(false);
+        e.setEvaluationFormOfClassPresident(null);
 
         e.setStatus(Status.NEED_STUDENT_FILL);
-        e.setTotalPoint(80);
+        e.setTotalPoint(e.autoGenerateTotalPoint());
         return e;
     }
+
+
 }

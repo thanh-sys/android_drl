@@ -10,6 +10,7 @@ import vnu.uet.trainingpoint.model.dto.ClassesDTO;
 import vnu.uet.trainingpoint.repository.ClassesRepository;
 import vnu.uet.trainingpoint.repository.ConsultantRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,6 +30,14 @@ public class ClassesService {
         this.classesRepository = classesRepository;
     }
 
+    public List<Classes> findAll() {
+        return classesRepository.findAll();
+    }
+
+    public Optional<Classes> findByUsernameConsultant(String username) {
+        return classesRepository.findByUsernameConsultant(username);
+    }
+
     public ResponseEntity<ClassesDTO> find(String name) {
         Optional<Classes> classesOptional = classesRepository.getByName(name);
         return classesOptional.map(classes -> new ResponseEntity<>(
@@ -46,7 +55,7 @@ public class ClassesService {
             classes.setName(classesDTO.getName());
 
             Optional<Consultant> consultant = consultantRepository.findById(classesDTO.getConsultantId());
-            System.out.println(consultant);
+//            System.out.println(consultant);
             consultant.ifPresent(classes::setConsultant); //thêm thông tin cố vấn học tập nếu có
 
             //lưu vào DB

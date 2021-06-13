@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+        <link rel="stylesheet" th:href="@{/vendor/DataTable/datatables.min.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/student/classList.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/DataTable/datatables.min.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/monitorNav :: ${monitorNav}}"></th:block>
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left col-sm-8">
+                    <i class="fas fa-home"></i>
+                    <span>Điểm rèn luyện của cả lớp</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Mã sinh viên</th>
+                    <th>Tên sinh viên</th>
+                    <th>Điểm rèn luyện</th>
+                    <th>Xếp loại</th>
+                    <th>Trạng thái</th>
+                    <th id="evaluationFormDetailHeader">Phiếu đánh giá</th>
+                </tr>
+                </thead>
+                <tbody id="classListOfStudent">
+                <tr th:each="evaluationForm : ${evaluationForms}">
+                    <td class="studentID" th:text="${evaluationForm.student.user.username}"></td>
+                    <td class="studentName" th:text="${evaluationForm.student.fullName}"></td>
+                    <td class="studentPoint" th:text="${evaluationForm.totalPoint}"></td>
+                    <td class="studentPoint" th:text="${evaluationForm.status.getS()}"></td>
+                    <td class="studentRank" th:text="${evaluationForm.graded}"></td>
+
+                    <td><a class="detailLink"
+                           th:href="@{/monitor/classList/edit/{id}(id = ${evaluationForm.student.user.username})}">Xem chi tiết</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

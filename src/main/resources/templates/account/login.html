@@ -13,40 +13,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>UET Training Point - Đăng nhập</title>
     <th:block id="css-resources">
-        <!-- Thêm những css riêng vào đây -->
-        <link rel="stylesheet" th:href="@{/css/main.css}">
-        <link rel="stylesheet" th:href="@{/css/account/account.css">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/account/account.css}">
     </th:block>
+    <th:block id="js-resources"></th:block>
 </head>
 <body>
-
 <main id="main-content">
     <div class="login-form">
         <div class="login-title">
             <span>Đăng nhập hệ thống</span>
         </div>
-
-        <div class="box-content">
-            <div class="form-group">
-                <label for="InputEmail">Tên truy cập</label>
-                <input type="email" class="form-control" placeholder="Tên truy cập">
+        <form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto ">
+            <div class="p-3 rounded">
+                <p>Nhập tài khoản và mật khẩu của bạn</p>
+                <p>
+                    <input type="username" name="username" class="form-control" placeholder="Tài khoản" required
+                           autofocus>
+                </p>
+                <p>
+                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required/>
+                </p>
+                <div th:if="${param.error}">
+                    <p class="text-danger" style="text-align: center;">Tài khoản hoặc mật khẩu không chính xác</p>
+                </div>
+                <div th:if="${param.logout}">
+                    <p class="text-warning" style="text-align: center;">Đăng xuất thành công</p>
+                </div>
+                <p>
+                    <input type="submit" value="Đăng nhập" class="btn btn-primary">
+                </p>
             </div>
-            <div class="form-group">
-                <label for="InputPassword">Mật khẩu</label>
-                <input type="password" class="form-control" placeholder="Mật khẩu">
-            </div>
-            <button type="submit" class="btn btn-success">Đăng nhập</button>
-            <a href="#">Quên mật khẩu</a>
-        </div>
-
+        </form>
     </div>
 </main>
-
-<th:block id="js-resources">
-    <!-- Viết js riêng vào đây -->
-</th:block>
-
 </body>
 </html>
