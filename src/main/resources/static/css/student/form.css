@@ -73,9 +73,10 @@
 
  #rank,
  #evaluateRank {
-    font-size: 25px;
+    font-size: 15px;
     display: flex;
     justify-content: center;
+    width:200px;
 }
 
 .tab-content .totalAndRank {

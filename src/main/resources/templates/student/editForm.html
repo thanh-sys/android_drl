@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
-      th:replace="~{/layout/layout :: main-fragment(
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/html"
+	th:replace="~{/layout/layout :: main-fragment(
                                                 ~{:: title},
                                                 'full-header',
                                                 'nav',
@@ -10,604 +11,1061 @@
                                                 ~{:: #main-content}
                                                )}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UET Training Point</title>
-    <th:block id="css-resources">
-        <link rel="stylesheet" th:href="@{/css/common/main.css}">
-        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
-        <link rel="stylesheet" th:href="@{/css/student/form.css}">
-    </th:block>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ptit Training Point</title>
+<th:block id="css-resources">
+	<link rel="stylesheet" th:href="@{/css/common/main.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/student/form.css}">
+</th:block>
 
-    <th:block id="js-resources">
-        <script type="text/javascript" defer th:src="@{/js/student/addForm.js}"></script>
-        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
-        <script type="module" th:src="@{/js/common/initPoint.js}"></script>
-        <script th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
-    </th:block>
+<th:block id="js-resources">
+	<script type="text/javascript" defer th:src="@{/js/student/addForm.js}"></script>
+	<script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+	<script type="module" th:src="@{/js/common/studentInitPoint.js}"></script>
+	<script th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+</th:block>
 </head>
 <body>
-<main id="main-content">
-    <th:block th:replace="~{fragment/studentNav :: ${studentNav}}"></th:block>
-
-    <div th:if="${exists}">
-        <form action="#" th:action="@{/saveEvaluationFormOfStudent}" th:object="${evaluationForm}" method="post">
-
-            <input type="hidden" th:field="*{id}">
-
-            <div class="main mainForm">
-                <div class="col-sm-12">
-                    <div class="page-header">
-                        <h1 class="pull-left">
-                            <i class="fas fa-pen-alt"></i>
-                            <span>Điền phiếu rèn luyện</span>
-                        </h1>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="tab-content">
-                        <div class="col-md-10">
-                            <div class="form-group row">
-                                <label for="inputMsv" class="col-sm-2 col-form-label">Mã sinh viên</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputStudentID" disabled
-                                           th:field="*{student.user.username}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="inputNamHoc" class="col-sm-2 col-form-label">Năm học</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputSchoolYear" disabled
-                                           th:field="*{year}">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="inputHocKy" class="col-sm-2 col-form-label">Học kỳ</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="inputSemester" disabled
-                                           th:field="*{semesterInYear}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12">
-                    <div class="tab-content">
-                        <div class="col-md-12" th:onmousemove="totalPoint('totalPointFinalAlll')">
-                            <div class="form-group row">
-                                <label class="col-sm-8 col-form-label formHeader">Nội dung đánh giá</label>
-                                <label class="col-sm-3 col-form-label formHeader">Sinh viên tự đánh giá</label>
-                                <label class="col-sm-1 col-form-label formHeader">Điểm</label>
-                            </div>
-
-                            <div class="seperator"></div>
-
-                            <div id="part1" th:onmousemove="totalPointFinal1('totalPointFinal1')">
-                                <div th:onmousemove="total1('total1')">
-                                    <div class="form-group row">
-                                        <label class="col-sm-11 heading1">1. Ý thức học tập</label>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;1.1 Điểm chuẩn</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 benchmark">+30</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;1.2 Điểm trừ</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputHocLucYeu" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Học lực
-                                            yếu <i>(trừ 3đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputHocLucYeu"
-                                                   th:field="*{hoc_luc_yeu}"
-                                                   th:onclick="clickAndMinusThree(this.id)">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointHocLucYeu">0</div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputCanhBaoHocVu" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Bị cảnh
-                                            báo học vụ <i>(trừ 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputCanhBaoHocVu"
-                                                   th:field="*{canh_cao_hoc_vu}"
-                                                   th:onclick="clickAndMinusFive(this.id)">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointCanhBaoHocVu">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputDangKiKhongDuTin" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Đăng
-                                            ký không đủ số tín chỉ theo Quy định <i>(trừ 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputDangKiKhongDuTin"
-                                                   th:field="*{dang_ki_khong_du_tin}"
-                                                   th:onclick="clickAndMinusFive(this.id)">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointDangKiKhongDuTin">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputCamThiBoThi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Bị cấm
-                                            thi hoặc bỏ thi cuối kỳ không có lý do <i>(trừ 2đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputCamThiBoThi"
-                                                   placeholder="Số lần"
-                                                   th:field="*{cam_thi_bo_thi}"
-                                                   th:onchange="minusTwoPerTime(this.id)">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointCamThiBoThi">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-3" id="totalLabel1">Cộng</div>
-                                        <div class="col-sm-1 benchmark" id="total1">30</div>
-                                    </div>
-
-                                    <div class="form-group row" th:onmousemove="fillKyLuatThi('inputKyLuatThi')">
-                                        <label for="inputKyLuatThi" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Kỷ
-                                            luật thi (Khiển trách. Cảnh cáo, Đình chỉ): Trừ tương ứng 25% /50% /100%
-                                            tổng số điểm của Nội dung 1.</label>
-                                        <div class="col-sm-3">
-                                            <select id="inputKyLuatThi" class="custom-select form-control"
-                                                    th:field="*{ky_luat_thi}" required>
-                                                <option th:value="NO">Không</option>
-                                                <option th:value="KHIEN_TRACH">Khiển trách</option>
-                                                <option th:value="CANH_CAO">Cảnh cáo</option>
-                                                <option th:value="DINH_CHI">Đình chỉ</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKyLuatThi">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-11" id="totalPoint1">Điểm kết luận của 1. [0, 30]</div>
-                                        <div class="col-sm-1 benchmark" id="totalPointFinal1">30</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="seperator"></div>
-
-                            <div id="part2" th:onmousemove="totalPointFinal2('totalPointFinal2')">
-                                <div th:onmousemove="total2('total2')">
-                                    <div class="form-group row">
-                                        <label class="col-sm-11 heading1">2. Ý thức và kết quả chấp hành nội quy, quy
-                                            chế trong nhà trường</label>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;2.1 Điểm chuẩn</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 benchmark">+25</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;2.2 Điểm trừ</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputNopNhanKinhPhi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Nộp
-                                            hoặc nhận không đúng một khoản kinh phí <i>(trừ 5đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputNopNhanKinhPhi"
-                                                   placeholder="Số lần" th:onchange="minusFivePerTime(this.id)"
-                                                   th:field="*{nop_nhan_kinh_phi}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointNopNhanKinhPhi">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputĐangKiHoc" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Đăng kí
-                                            học quá hạn <i>(nếu được chấp nhận -2đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputĐangKiHoc"
-                                                   th:onclick="clickAndMinusTwo(this.id)"
-                                                   th:field="*{dang_ki_hoc_qua_han}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointĐangKiHoc">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKhongThucHienYeuCau" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Không
-                                            thực hiện theo Giấy triệu tập/Yêu cầu của Nhà trường <i>(trừ
-                                                5đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputKhongThucHienYeuCau"
-                                                   placeholder="Số lần" th:onchange="minusFivePerTime(this.id)"
-                                                   th:field="*{khong_thuc_hien_yeu_cau}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKhongThucHienYeuCau">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputGiayToQuaHan" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Trả
-                                            quá hạn giấy tờ/hồ sơ đã được phép mượn <i>(trừ 5đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputGiayToQuaHan"
-                                                   placeholder="Số lần" th:onchange="minusFivePerTime(this.id)"
-                                                   th:field="*{tra_qua_han_giay_to}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointGiayToQuaHan">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKhongBaoHiem" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Không
-                                            tham gia Bảo hiểm Y tế <i>(trừ 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputKhongBaoHiem"
-                                                   th:onclick="clickAndMinusFive(this.id)"
-                                                   th:field="*{khong_tham_gia_bao_hiem}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKhongBaoHiem">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputViPhamCuTru" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Vi phạm
-                                            quy định nơi cư trú <i>(trừ 10đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputViPhamCuTru"
-                                                   placeholder="Số lần"
-                                                   th:onchange="minusTenPerTime(this.id)"
-                                                   th:field="*{vi_pham_quy_dinh_cu_tru}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointViPhamCuTru">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-8"></div>
-                                        <div class="col-sm-3" id="totalLabel2">Cộng</div>
-                                        <div class="col-sm-1 benchmark" id="total2">25</div>
-                                    </div>
-
-                                    <div class="form-group row"
-                                         th:onmousemove="fillQuyetDinhKyLuat('inputQuyetDinhKyLuat')">
-                                        <label for="inputQuyetDinhKyLuat" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Có
-                                            quyết định kỷ luật (Phê bình, Khiển trách, Cảnh cáo): Trừ tương ứng 25% /50%
-                                            /100% tổng số điểm của Nội dung 2.</label>
-                                        <div class="col-sm-3">
-                                            <select id="inputQuyetDinhKyLuat" class="custom-select form-control"
-                                                    required
-                                                    th:field="*{quyet_dinh_ky_luat}">
-                                                <option th:value="NO">Không</option>
-                                                <option th:value="PHE_BINH">Phê Bình</option>
-                                                <option th:value="KHIEN_TRACH">Khiển Trách</option>
-                                                <option th:value="CANH_CAO">Cảnh cáo</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointQuyetDinhKyLuat">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-11" id="totalPoint2">Điểm kết luận của 2. [0, 25]</div>
-                                        <div class="col-sm-1 benchmark" id="totalPointFinal2">25</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="seperator"></div>
-
-                            <div id="part3">
-                                <div th:onmousemove="totalPointFinal3('totalPointFinal3')">
-                                    <div class="form-group row">
-                                        <label class="col-sm-11 heading1">3. Ý thức và kết quả tham gia hoạt động chính
-                                            trị - xã hội, văn hoá, văn nghệ, thể thao, phòng chống các tệ nạn xã
-                                            hội</label>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;3.1 Điểm chuẩn</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 benchmark">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;3.2 Điểm cộng</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputThamGiaChinhTri" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Tham
-                                            gia đầy đủ các hoạt động của chi đoàn và tham gia đầy đủ các buổi sinh hoạt
-                                            chính trị theo triệu tập (nếu có) của Nhà trường và tham gia đầy đủ các buổi
-                                            sinh hoạt chính trị theo triệu tập (nếu có) của Nhà trường <i>(cộng 10đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputThamGiaChinhTri"
-                                                   th:onclick="clickAndPlusTen(this.id)"
-                                                   th:field="*{tham_gia_chi_doan_chinh_tri}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointThamGiaChinhTri">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputThamGiaHoatDong" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Tham
-                                            gia <b>(có giấy xác nhận)</b> các hoạt động văn nghệ, thể thao, câu lạc bộ,
-                                            hoạt động tình nguyện, ... <i>(cộng 2đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputThamGiaHoatDong"
-                                                   placeholder="Số lần" th:onchange="plusTwoPerTime(this.id)"
-                                                   th:field="*{tham_gia_hoat_dong}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointThamGiaHoatDong">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;3.2 Điểm trừ</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKhongThamGiaChinhTri" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Không
-                                            tham gia Sinh hoạt chính trị theo Quy định <i>(trừ 2đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputKhongThamGiaChinhTri"
-                                                   placeholder="Số lần" th:onchange="minusTwoPerTime(this.id)"
-                                                   th:field="*{khong_tham_gia_sinh_hoat}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKhongThamGiaChinhTri">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-11" id="totalPoint2">Điểm kết luận của 3. [0, 20]</div>
-                                        <div class="col-sm-1 benchmark" id="totalPointFinal3">0</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="seperator"></div>
-
-                            <div id="part4">
-                                <div th:onmousemove="totalPointFinal4('totalPointFinal4')">
-                                    <div class="form-group row">
-                                        <label class="col-sm-11 heading1">4. Về phẩm chất công dân và quan hệ với cộng
-                                            đồng</label>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;4.1 Điểm chuẩn</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 benchmark">+15</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;4.2 Điểm trừ</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKhongChapHanhLuat" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Có
-                                            Thông báo bằng văn bản về việc không chấp hành các chủ trương của Đảng,
-                                            chính sách pháp luật của Nhà nước, vi phạm an ninh chính trị, trật tự an
-                                            toàn xã hội, an toàn giao thông <i>(trừ 5đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputKhongChapHanhLuat"
-                                                   placeholder="Số lần" th:onchange="minusFivePerTime(this.id)"
-                                                   th:field="*{khong_chap_hanh_luat}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKhongChapHanhLuat">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKhongDoanKet" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Không
-                                            có tinh thần giúp đỡ bạn bè, không thể hiện tinh thần đoàn kết tập thể <i>(trừ
-                                                5đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputKhongDoanKet"
-                                                   placeholder="Số lần" th:onchange="minusFivePerTime(this.id)"
-                                                   th:field="*{khong_co_tinh_than_doan_ket}">
-                                        </div>
-                                        <div class="col-sm-1 minusPoint" id="pointKhongDoanKet">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-11" id="totalPoint4">Điểm kết luận của 4. [0, 15]</div>
-                                        <div class="col-sm-1 benchmark" id="totalPointFinal4">15</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="seperator"></div>
-
-                            <div id="part5">
-                                <div th:onmousemove="totalPointFinal5('totalPointFinal5')">
-                                    <div class="form-group row">
-                                        <label class="col-sm-11 heading1">5. Ý thức và kết quả tham gia công tác phụ
-                                            trách lớp, các đoàn thể, tổ chức trong nhà trường hoặc đạt được thành tích
-                                            đặc biệt trong học tập, rèn luyện của học sinh, sinh viên</label>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;5.1 Điểm chuẩn</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1 benchmark">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-sm-8 heading2">&nbsp;&nbsp;5.2 Điểm Cộng</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Giữ các
-                                            chức vụ trong các tổ chức chính quyền, đoàn thể và được đánh giá hoàn thành
-                                            tốt nhiệm vụ <i>(cộng 10đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputGiuChucVu"
-                                                   th:onclick="clickAndPlusTen(this.id)"
-                                                   th:field="*{giu_chuc_vu}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointGiuChucVu">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Đạt thành
-                                            tích cao trong học tập và NCKH:</label>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputHocLuc" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Học
-                                            lực (Xuất sắc, Giỏi) <i>(cộng 10đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputHocLuc"
-                                                   th:onclick="clickAndPlusTen(this.id)"
-                                                   th:field="*{hoc_luc_gioi_xuat_sac}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointHocLuc">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputChungChiTiengAnh" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Có
-                                            chứng chỉ tiếng Anh vượt quy định <i>(cộng 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputChungChiTiengAnh"
-                                                   th:onclick="clickAndPlusFive(this.id)"
-                                                   th:field="*{chung_chi_tieng_Anh}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointChungChiTiengAnh">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputThamGiaCuocThi" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Tham
-                                            gia các cuộc thi chuyên môn như Procon, Olympic, An toàn thông tin ... <i>(cộng
-                                                2đ/lần)</i></label>
-                                        <div class="col-sm-3">
-                                            <input type="number" class="form-control" id="inputThamGiaCuocThi"
-                                                   placeholder="Số lần" th:onchange="plusTwoPerTime(this.id)"
-                                                   th:field="*{tham_gia_cuoc_thi}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointThamGiaCuocThi">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputDatGiaiChuyenMon" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Đạt
-                                            giải tại các cuộc thi chuyên môn <i>(cộng 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputDatGiaiChuyenMon"
-                                                   th:onclick="clickAndPlusFive(this.id)"
-                                                   th:field="*{dat_giai_cuoc_thi}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointDatGiaiChuyenMon">0</div>
-                                    </div>
-
-
-                                    <div class="form-group row">
-                                        <label for="inputThamGiaNCKH" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Tham
-                                            gia NCKH (không phải là SV NVCL) <i>(cộng 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputThamGiaNCKH"
-                                                   th:onclick="clickAndPlusFive(this.id)"
-                                                   th:field="*{tham_gia_NCKH}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointThamGiaNCKH">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputDatGiaiNCKH" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Đạt
-                                            giải NCKH các cấp hoặc có báo cáo tại Hội nghị NCKH/bài báo đăng trên các
-                                            tạp chí trong và ngoài nước <i>(cộng 5đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputDatGiaiNCKH"
-                                                   th:onclick="clickAndPlusFive(this.id)"
-                                                   th:field="*{dat_giai_NCKH}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointDatGiaiNCKH">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputKetNapDang" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Được
-                                            kết nạp đảng <i>(cộng 10đ)</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="checkbox" type="checkbox" id="inputKetNapDang"
-                                                   th:onclick="clickAndPlusTen(this.id)"
-                                                   th:field="*{ket_nap_Dang}">
-                                        </div>
-                                        <div class="col-sm-1 plusPoint" id="pointKetNapDang">0</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-11" id="totalPoint5">Điểm kết luận của 5. [0, 10]</div>
-                                        <div class="col-sm-1 benchmark" id="totalPointFinal5">0</div>
-                                    </div>
-                                </div>
-
-                                <div class="seperator" style="padding-bottom: 170px;"></div>
-
-                                <div id="part6" class="evaluationFormFooter studentPoint">
-                                    <div>
-                                        <div class="form-group row form-group-margin totalResult">
-                                            <div class="col-sm-11" id="totalPointAll">Tổng cộng (1.+2.+3.+4.+5.) [0,
-                                                100]
-                                            </div>
-                                            <input type="hidden" class="form-control" th:field="*{totalPoint}">
-                                            <input type="number" class="form-control col-sm-1 benchmark"
-                                                   id="totalPointFinalAlll" th:value="*{totalPoint}" disabled>
-                                        </div>
-
-                                        <div class="seperator"></div>
-
-                                        <div class="form-group row" style="margin-top: 10px">
-                                            <div class="col-sm-10" id="totalPointAll">Xếp loại :</div>
-                                            <div class="col-sm-2 text-info" id="rank">None</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row totalAndRank">
-                                        <div class="col-sm-8"></div>
-                                        <div th:if="*{statusNeedFill}" class="col-sm-2">
-                                            <div>
-                                                <button type="submit" class="btn btn-success formButton">Gửi</button>
-                                            </div>
-                                        </div>
-                                        <div th:unless="*{statusNeedFill}" class="col-sm-2">
-                                            <div>
-                                                <button type="submit" class="btn btn-secondary formButton" disabled>Đã
-                                                    gửi
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <a th:href="@{/student}" class="btn btn-secondary formButton"
-                                               style="color: white;">Trở lại</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div th:unless="${exists}">
-        <th:block th:replace="~{fragment/noSemester :: ${noSemester}}"></th:block>
-    </div>
-
-
-</main>
-
-<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+	<main id="main-content">
+		<th:block th:replace="~{fragment/studentNav :: ${studentNav}}"></th:block>
+
+		<div th:if="${exists}">
+			<form action="#" th:action="@{/saveEvaluationFormOfStudent}"
+				th:object="${evaluationForm}" method="post">
+
+				<input type="hidden" th:field="*{id}">
+
+				<div class="main mainForm">
+					<div class="col-sm-12">
+						<div class="page-header">
+							<h1 class="pull-left">
+								<i class="fas fa-pen-alt"></i> <span>Điền phiếu rèn luyện</span>
+							</h1>
+						</div>
+					</div>
+					<div class="col-sm-12">
+						<div class="tab-content">
+							<div class="col-md-10">
+								<div class="form-group row">
+									<label for="inputMsv" class="col-sm-2 col-form-label">Mã
+										sinh viên</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" id="inputStudentID"
+											disabled th:field="*{student.user.username}">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label for="inputNamHoc" class="col-sm-2 col-form-label">Năm
+										học</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" id="inputSchoolYear"
+											disabled th:field="*{year}">
+									</div>
+								</div>
+
+								<div class="form-group row">
+									<label for="inputHocKy" class="col-sm-2 col-form-label">Học
+										kỳ</label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" id="inputSemester"
+											disabled th:field="*{semesterInYear}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-12">
+						<div class="tab-content">
+							<div class="col-md-12"
+								th:onmousemove="totalPoint('totalPointFinalAlll')">
+								<div class="form-group row">
+									<label class="col-sm-8 col-form-label formHeader">Nội
+										dung đánh giá</label> <label
+										class="col-sm-3 col-form-label formHeader">Sinh viên
+										tự đánh giá</label> <label class="col-sm-1 col-form-label formHeader">Điểm</label>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div id="part1"
+									th:onmousemove="totalPointFinal1('totalPointFinal1')">
+									<div th:onmousemove="total1('total1')">
+										<div class="form-group row">
+											<label class="col-sm-11 heading1">1. Ý thức học tập</label>
+											<div class="col-sm-1"></div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-8 heading2">&nbsp;&nbsp;1.1 Ý
+												thức và thái độ trong học tập</label>
+											<div class="col-sm-3"></div>
+
+										</div>
+
+										<div class="form-group row">
+											<label for="inputDiHocDungGio"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Đi
+												học đầy đủ, đúng giờ, nghiêm túc trong giờ học, giờ thực
+												hành <i>(cộng 3đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputDiHocDungGio" th:field="*{di_hoc_dung_gio}"
+													th:onclick="clickAndPlusThree(this.id)">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointDiHocDungGio">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-8 heading2">&nbsp;&nbsp;1.2 Kết
+												quả học tập trong kỳ học</label>
+											<div class="col-sm-3"></div>
+											<div class="col-sm-1"></div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLuc" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Có
+												kết quả học tập xếp loại Xuất sắc <i>(cộng 10đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputHocLuc"
+													name="hoc_luc" th:onclick="clickAndPlusTen(this.id)"
+													th:field="*{hoc_luc_gioi_xuat_sac}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHocLuc">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLucGioi" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Có
+												kết quả học tập đạt loại Giỏi <i>(cộng 8đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputHocLucGioi"
+													name="hoc_luc" th:onclick="clickAndPlusEight(this.id)"
+													th:field="*{hoc_luc_gioi}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHocLucGioi">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLucKha" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
+												Có kết quả học tập đạt loại Khá <i>(cộng 6đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputHocLucKha"
+													name="hoc_luc" th:onclick="clickAndPlusSix(this.id)"
+													th:field="*{hoc_luc_kha}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHocLucKha">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLucTrungBinh"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
+												Có kết quả học tập đạt loại Trung bình <i>(cộng 3đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputHocLucTrungBinh" name="hoc_luc"
+													th:onclick="clickAndPlusThree(this.id)"
+													th:field="*{hoc_luc_trungbinh}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHocLucTrungBinh">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLucDuoiTrungBinh"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+
+												Có kết quả học tập đạt loại dưới Trung bình <i>(cộng 0đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputHocLucDuoiTrungBinh" name="hoc_luc"
+													th:onclick="clickAndPlusZero(this.id)"
+													th:field="*{hoc_luc_duoi_trungbinh}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHocLucDuoiTrungBinh">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHocLucYeu" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Học
+												lại (phần lý thuyết/ thực hành) <i>(trừ 1đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputHocLucYeu"
+													name="hoc_luc" th:field="*{hoc_luc_yeu}"
+													th:onclick="clickAndMinusOne(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointHocLucYeu">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputCanhBaoHocVu" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Bị -->
+										<!-- 												cảnh báo học vụ <i>(trừ 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputCanhBaoHocVu" th:field="*{canh_cao_hoc_vu}" -->
+										<!-- 													th:onclick="clickAndMinusFive(this.id)"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointCanhBaoHocVu">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputDangKiKhongDuTin" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Đăng -->
+										<!-- 												ký không đủ số tín chỉ theo Quy định <i>(trừ 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputDangKiKhongDuTin" -->
+										<!-- 													th:field="*{dang_ki_khong_du_tin}" -->
+										<!-- 													th:onclick="clickAndMinusFive(this.id)"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointDangKiKhongDuTin">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputCamThiBoThi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Bị -->
+										<!-- 												cấm thi hoặc bỏ thi cuối kỳ không có lý do <i>(trừ -->
+										<!-- 													2đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputCamThiBoThi" placeholder="Số lần" -->
+										<!-- 													th:field="*{cam_thi_bo_thi}" -->
+										<!-- 													th:onchange="minusTwoPerTime(this.id)"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointCamThiBoThi">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<label class="col-sm-8 heading2">&nbsp;&nbsp;1.3 Ý
+												thức chấp hành tốt nội quy về các kỳ thi.Sinh viên bị trừ
+												điểm trong các trường hợp/1 lần vi phạm:</label>
+											<div class="col-sm-3"></div>
+											<div class="col-sm-1 benchmark" id="total1">4</div>
+										</div>
+ 
+										<div class="form-group row">
+											<label for="inputCamThiBoThi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;Không
+												đủ điều kiện dự thi/bị cấm thi cho mỗi học phần (lý thuyết/
+												thực hành) <i>(trừ 2đ/lần)</i>
+											</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control"
+													id="inputCamThiBoThi" placeholder="Số lần"
+													th:field="*{cam_thi_bo_thi}"
+													th:onchange="minusTwoPerTime(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointCamThiBoThi">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputKhienTrach" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;+
+												Bị lập biên bản khiển trách khi thi kết thúc học phần <i>(trừ
+													2đ/lần)</i>
+											</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control"
+													id="inputKhienTrach" placeholder="Số lần" 
+													th:field="*{khien_trach}"
+													th:onchange="minusTwoPerTime(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointKhienTrach">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputCanhCao" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;+
+												Bị lập biên bản cảnh cáo khi thi kết thúc học phần <i>(trừ
+													3đ/lần)</i>
+											</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="inputCanhCao" value="0"
+													placeholder="Số lần" th:field="*{canh_cao}"
+													th:onchange="minusThreePerTime(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointCanhCao">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputDinhChi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;+
+												Bị lập biên bản đình chỉ khi thi kết thúc học phần <i>(trừ
+													4đ/lần)</i>
+											</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="inputDinhChi" value="0"
+													placeholder="Số lần" th:field="*{dinh_chi}"
+													th:onchange="minusFourPerTime(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointDinhChi">0</div>
+										</div>
+
+
+
+
+										<div class="form-group row">
+											<label for="inputThamGiaHoatDong"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;1.4
+												Ý thức và thái độ tham gia các hoạt động ngoại khóa, các sự
+												kiện liên quan đến nghiên cứu khoa học, học thuật, chuyên
+												môn, Câu lạc bộ (1 điểm/1 sự kiện, hoạt động tham gia, tổng
+												điểm không vượt quá 2 điểm) </label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control"
+													id="inputThamGiaHoatDong" placeholder="Số lần"
+													th:onchange="plusOnePerTime(this.id)"
+													th:field="*{tham_gia_hoat_dong}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointThamGiaHoatDong">0</div>
+										</div>
+
+
+										<div class="form-group row">
+											<label for="inputVuotKho" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.5
+												Tinh thần vượt khó, phấn đấu vươn lên trong học tập (có
+												ĐTBCTL học kỳ sau lớn hơn học kỳ trước đó; đối với sinh viên
+												năm thứ nhất, học kỳ 1 không có điểm dưới 2,5)<i>(cộng
+													1đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputVuotKho"
+													th:onclick="clickAndPlusOne(this.id)"
+													th:field="*{vuot_kho}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointVuotKho">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<div class="col-sm-8"></div> -->
+										<!-- 											<div class="col-sm-3" id="totalLabel1">Cộng</div> -->
+
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row" -->
+										<!-- 											th:onmousemove="fillKyLuatThi('inputKyLuatThi')"> -->
+										<!-- 											<label for="inputKyLuatThi" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Kỷ -->
+										<!-- 												luật thi (Khiển trách. Cảnh cáo, Đình chỉ): Trừ tương ứng -->
+										<!-- 												25% /50% /100% tổng số điểm của Nội dung 1.</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<select id="inputKyLuatThi" -->
+										<!-- 													class="custom-select form-control" -->
+										<!-- 													th:field="*{ky_luat_thi}" required> -->
+										<!-- 													<option th:value="NO">Không</option> -->
+										<!-- 													<option th:value="KHIEN_TRACH">Khiển trách</option> -->
+										<!-- 													<option th:value="CANH_CAO">Cảnh cáo</option> -->
+										<!-- 													<option th:value="DINH_CHI">Đình chỉ</option> -->
+										<!-- 												</select> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointKyLuatThi">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<div class="col-sm-11" id="totalPoint1">Điểm kết luận
+												của 1. [0, 20]</div>
+											<div class="col-sm-1 benchmark" id="totalPointFinal1">4</div>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="seperator"></div>
+
+								<div id="part2"
+									th:onmousemove="totalPointFinal2('totalPointFinal2')">
+									<div th:onmousemove="total2('total2')">
+										<div class="form-group row">
+											<label class="col-sm-11 heading1">2. Đánh giá về ý
+												thức chấp hành nội quy, quy chế, quy định của Học viện</label>
+											<div class="col-sm-1"></div>
+										</div>
+
+										<div class="form-group row">
+											<label class="col-sm-8 heading2">&nbsp;&nbsp;2.1 Thực
+												hiện nghiêm túc các nội quy, quy chế, các quy.Sinh viên bị
+												trừ điểm trong các trường hợp</label>
+											<div class="col-sm-3"></div>
+											<div class="col-sm-1 benchmark" id="total2">15</div>
+											<!-- 											<div class="col-sm-1 benchmark">25</div> -->
+										</div>
+
+										<div class="form-group row">
+											<label for="inputKhongDongHocPhi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;+
+												Không đóng học phí theo quy định<i>(trừ 15đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputKhongDongHocPhi"
+													th:onclick="clickAndMinus15(this.id)"
+													th:field="*{khong_dong_hoc_phi}">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointKhongDongHocPhi">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputViPhamCuTru" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;+
+												Không thực hiện quy định về công tác ngoại trú, nội trú. <i>(trừ
+													5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputViPhamCuTru"
+													th:onclick="clickAndMinusFive(this.id)"
+													th:field="*{vi_pham_quy_dinh_cu_tru}">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointViPhamCuTru">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label class="col-sm-8 heading2">&nbsp;&nbsp;2.2 Điểm -->
+										<!-- 												trừ</label> -->
+										<!-- 											<div class="col-sm-3"></div> -->
+										<!-- 											<div class="col-sm-1"></div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<label for="inputNghiemTuc"
+												class="col-sm-8 col-form-label heading2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.2
+												- Thực hiện nghiêm túc các buổi họp lớp/ sinh hoạt đoàn thể
+												do Học viện/Khoa/Viện, CVHT, Lớp/Chi đoàn tổ chức (tùy thuộc
+												vào số buổi tổ chức sinh hoạt, họp)<i>(cộng 5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputNghiemTuc"
+													th:onclick="clickAndPlusFive(this.id)"
+													th:field="*{nghiem_tuc}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointNghiemTuc">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputKhongHopLop" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-
+												Vắng 01 buổi họp lớp/ sinh hoạt đoàn thể (không lý do) <i>(trừ
+													1đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputKhongHopLop" th:field="*{khong_hop_lop}"
+													th:onclick="clickAndMinusOne(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointKhongHopLop">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHoiThao"
+												class="col-sm-8 col-form-label heading2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.3
+												- Tham gia các buổi hội thảo việc làm, định hướng nghề
+												nghiệp do Học viện tổ chức (1 điểm/1 sự kiện tham gia, tổng
+												điểm không vượt quá 5 điểm)<i>(cộng 5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputHoiThao"
+													th:onclick="clickAndPlusFive(this.id)"
+													th:field="*{hoi_thao}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHoiThao">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputVangHoiThao" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;
+												- Vắng 01 buổi <i>(trừ 1đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputVangHoiThao" th:field="*{vang_hoi_thao}"
+													th:onclick="clickAndMinusOne(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointVangHoiThao">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputNopNhanKinhPhi" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Nộp -->
+										<!-- 												hoặc nhận không đúng một khoản kinh phí <i>(trừ -->
+										<!-- 													5đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputNopNhanKinhPhi" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusFivePerTime(this.id)" -->
+										<!-- 													th:field="*{nop_nhan_kinh_phi}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointNopNhanKinhPhi">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputĐangKiHoc" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Đăng -->
+										<!-- 												kí học quá hạn <i>(nếu được chấp nhận -2đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" id="inputĐangKiHoc" -->
+										<!-- 													th:onclick="clickAndMinusTwo(this.id)" -->
+										<!-- 													th:field="*{dang_ki_hoc_qua_han}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointĐangKiHoc">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKhongThucHienYeuCau" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Không -->
+										<!-- 												thực hiện theo Giấy triệu tập/Yêu cầu của Nhà trường <i>(trừ -->
+										<!-- 													5đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputKhongThucHienYeuCau" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusFivePerTime(this.id)" -->
+										<!-- 													th:field="*{khong_thuc_hien_yeu_cau}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" -->
+										<!-- 												id="pointKhongThucHienYeuCau">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputGiayToQuaHan" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Trả -->
+										<!-- 												quá hạn giấy tờ/hồ sơ đã được phép mượn <i>(trừ -->
+										<!-- 													5đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputGiayToQuaHan" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusFivePerTime(this.id)" -->
+										<!-- 													th:field="*{tra_qua_han_giay_to}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointGiayToQuaHan">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKhongBaoHiem" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Không -->
+										<!-- 												tham gia Bảo hiểm Y tế <i>(trừ 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputKhongBaoHiem" -->
+										<!-- 													th:onclick="clickAndMinusFive(this.id)" -->
+										<!-- 													th:field="*{khong_tham_gia_bao_hiem}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointKhongBaoHiem">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputViPhamCuTru" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;-Vi -->
+										<!-- 												phạm quy định nơi cư trú <i>(trừ 10đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputViPhamCuTru" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusTenPerTime(this.id)" -->
+										<!-- 													th:field="*{vi_pham_quy_dinh_cu_tru}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointViPhamCuTru">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<div class="col-sm-8"></div> -->
+										<!-- 											<div class="col-sm-3" id="totalLabel2">Cộng</div> -->
+										<!-- 											<div class="col-sm-1 benchmark" id="total2">25</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row" -->
+										<!-- 											th:onmousemove="fillQuyetDinhKyLuat('inputQuyetDinhKyLuat')"> -->
+										<!-- 											<label for="inputQuyetDinhKyLuat" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Có -->
+										<!-- 												quyết định kỷ luật (Phê bình, Khiển trách, Cảnh cáo): Trừ -->
+										<!-- 												tương ứng 25% /50% /100% tổng số điểm của Nội dung 2.</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<select id="inputQuyetDinhKyLuat" -->
+										<!-- 													class="custom-select form-control" required -->
+										<!-- 													th:field="*{quyet_dinh_ky_luat}"> -->
+										<!-- 													<option th:value="NO">Không</option> -->
+										<!-- 													<option th:value="PHE_BINH">Phê Bình</option> -->
+										<!-- 													<option th:value="KHIEN_TRACH">Khiển Trách</option> -->
+										<!-- 													<option th:value="CANH_CAO">Cảnh cáo</option> -->
+										<!-- 												</select> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointQuyetDinhKyLuat">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<div class="col-sm-11" id="totalPoint2">Điểm kết luận
+												của 2. [0, 25]</div>
+											<div class="col-sm-1 benchmark" id="totalPointFinal2">0</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div id="part3">
+									<div th:onmousemove="totalPointFinal3('totalPointFinal3')">
+										<div class="form-group row">
+											<label class="col-sm-11 heading1">3. Đánh giá về ý
+												thức và kết quả tham gia hoạt động chính trị- xã hội, văn
+												hóa, văn nghệ, thể thao, phòng chống tội phạm và các tệ nạn
+												xã hội</label>
+											<div class="col-sm-1"></div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputThamGiaChinhTri"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;3.1
+												Tham gia đầy đủ các hoạt động chính trị, xã hội, các hoạt
+												động văn hóa, văn nghệ, thể thao, phong trào tình nguyện,
+												các buổi sinh hoạt chuyên đề do Học viện, lớp/chi đoàn, địa
+												phương nơi cư trú tổ chức (2 điểm/1 hoạt động, tổng điểm
+												không vượt quá 10 điểm)<i>(cộng 10đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control"
+													id="inputThamGiaChinhTri" placeholder="Số lần"
+													th:onchange="plusTwoPerTime(this.id)"
+													th:field="*{tham_gia_chi_doan_chinh_tri}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointThamGiaChinhTri">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputHienMau" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;3.2
+												Tham gia công tác xã hội như: hiến máu nhân đạo, ủng hộ
+												người nghèo gặp thiên tai lũ lụt và các công tác xã hội khác
+												(1 điểm/1 hoạt động tham gia, tổng điểm không vượt quá 4
+												điểm) </label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" id="inputHienMau" value="0"
+													placeholder="Số lần" th:onchange="plusOnePerTime(this.id)"
+													th:field="*{hien_mau}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointHienMau">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputTuyenTruyen" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;3.3
+												Tuyên truyền tích cực hình ảnh về Trường/Khoa trên các trang
+												mạng xã hội (1 điểm/1 hoạt động, tổng điểm không vượt quá 3
+												điểm) </label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control"
+													id="inputTuyenTruyen" placeholder="Số lần" 
+													th:onchange="plusOnePerTime(this.id)"
+													th:field="*{tuyen_truyen}"
+													value="0">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointTuyenTruyen">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputChongMaTuy" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												Tích cực tham gia các hoạt động phòng, chống tội phạm, các
+												tệ nạn xã hội, phát hiện và báo cáo kịp thời những hành vi
+												có liên quan đến ma túy, các tệ nạn xã hội khác <i>(cộng
+													3đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputChongMaTuy"
+													th:onclick="clickAndPlusThree(this.id)"
+													th:field="*{chong_ma_tuy}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointChongMaTuy">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputSaiLech" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;
+												Đưa các thông tin sai lệch, thông tin chưa được kiểm chứng,
+												đăng bình luận không chính xác, thiếu tích cực về Học viện/
+												Khoa/ ngành đang học. <i>(trừ 10đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputSaiLech"
+													th:field="*{sai_lech}"
+													th:onclick="clickAndMinusTen(this.id)">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointSaiLech">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKhongThamGiaChinhTri" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Không -->
+										<!-- 												tham gia Sinh hoạt chính trị theo Quy định <i>(trừ -->
+										<!-- 													2đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputKhongThamGiaChinhTri" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusTwoPerTime(this.id)" -->
+										<!-- 													th:field="*{khong_tham_gia_sinh_hoat}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" -->
+										<!-- 												id="pointKhongThamGiaChinhTri">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<div class="col-sm-11" id="totalPoint2">Điểm kết luận
+												của 3. [0, 20]</div>
+											<div class="col-sm-1 benchmark" id="totalPointFinal3">0</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div id="part4">
+									<div th:onmousemove="totalPointFinal4('totalPointFinal4')">
+										<div class="form-group row">
+											<label class="col-sm-11 heading1">4. Đánh giá ý thức
+												công dân trong quan hệ cộng đồng</label>
+											<div class="col-sm-1"></div>
+										</div>
+
+
+										<div class="form-group row">
+											<label for="inputChapHanhLuat"
+												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.1
+												Chấp hành nghiêm chỉnh chủ trương của Đảng, chính sách, pháp
+												luật của Nhà nước, Học viện và của địa phương nơi cư trú <i>(cộng
+													8đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputChapHanhLuat"
+													th:onclick="clickAndPlusEight(this.id)"
+													th:field="*{chap_hanh_luat}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointChapHanhLuat">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputTuyenTruyenDang"
+												class="col-sm-8 col-form-label ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.2
+												Tích cực tham gia tuyên truyền chủ trương của Đảng, chính
+												sách, pháp luật của Nhà nước, Học viện và quy định của địa
+												phương nơi cư trú; có ý thức thực hiện giữ gìn vệ sinh chung<i>(cộng
+													5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputTuyenTruyenDang"
+													th:onclick="clickAndPlusFive(this.id)"
+													th:field="*{tuyen_truyen_dang}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointTuyenTruyenDang">0</div>
+										</div>
+
+
+										<div class="form-group row">
+											<label for="inputQuanHeDungMuc"
+												class="col-sm-8 col-form-label ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.3
+												Có mối quan hệ đúng mực với Thầy/ Cô, cán bộ, nhân viên Học
+												viện<i>(cộng 5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputQuanHeDungMuc"
+													th:onclick="clickAndPlusFive(this.id)"
+													th:field="*{quan_he_dung_muc}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointQuanHeDungMuc">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputQuanHeDungTot"
+												class="col-sm-8 col-form-label ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.4
+												Có mối quan hệ tốt với bạn bè trong lớp và mọi người xung
+												quanh; có tinh thần đoàn kết, chia sẻ, giúp đỡ nhau trong
+												học tập và các vấn đề khác trong cộng đồng<i>(cộng 5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputQuanHeDungTot"
+													th:onclick="clickAndPlusFive(this.id)"
+													th:field="*{quan_he_dung_tot}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointQuanHeDungTot">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputKhenCongDong"
+												class="col-sm-8 col-form-label ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.5
+												Được biểu dương khen thưởng trong các hoạt động liên quan
+												đến ý thức công dân trong quan hệ cộng đồng<i>(cộng 2đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputKhenCongDong"
+													th:onclick="clickAndPlusTwo(this.id)"
+													th:field="*{khen_cong_dong}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointKhenCongDong">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputViPhamAnNinh" class="col-sm-8">&nbsp;&nbsp;&nbsp;&nbsp;4.6
+												Vi phạm an ninh, trật tự xã hội; an toàn giao thông (có giấy
+												báo của các cơ quan hữu quan) <i>(trừ 5đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputViPhamAnNinh"
+													th:onclick="clickAndMinusFive(this.id)"
+													th:field="*{vi_pham_an_ninh}">
+											</div>
+											<div class="col-sm-1 minusPoint" id="pointViPhamAnNinh">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKhongChapHanhLuat" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Có -->
+										<!-- 												Thông báo bằng văn bản về việc không chấp hành các chủ -->
+										<!-- 												trương của Đảng, chính sách pháp luật của Nhà nước, vi phạm -->
+										<!-- 												an ninh chính trị, trật tự an toàn xã hội, an toàn giao -->
+										<!-- 												thông <i>(trừ 5đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputKhongChapHanhLuat" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusFivePerTime(this.id)" -->
+										<!-- 													th:field="*{khong_chap_hanh_luat}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointKhongChapHanhLuat">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKhongDoanKet" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Không -->
+										<!-- 												có tinh thần giúp đỡ bạn bè, không thể hiện tinh thần đoàn -->
+										<!-- 												kết tập thể <i>(trừ 5đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputKhongDoanKet" placeholder="Số lần" -->
+										<!-- 													th:onchange="minusFivePerTime(this.id)" -->
+										<!-- 													th:field="*{khong_co_tinh_than_doan_ket}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 minusPoint" id="pointKhongDoanKet">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<div class="col-sm-11" id="totalPoint4">Điểm kết luận
+												của 4. [0, 25]</div>
+											<div class="col-sm-1 benchmark" id="totalPointFinal4">0</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="seperator"></div>
+
+								<div id="part5">
+									<div th:onmousemove="totalPointFinal5('totalPointFinal5')">
+										<div class="form-group row">
+											<label class="col-sm-11 heading1">5. Đánh giá về ý
+												thức và kết quả tham gia phụ trách lớp, các đoàn thể trong
+												nhà trường, thành tích đặc biệt trong học tập và rèn luyện</label>
+											<div class="col-sm-1"></div>
+										</div>
+
+
+										<div class="form-group row">
+											<label for="" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;Sinh
+												viên được Học viện phân công làm lớp trưởng, lớp phó; bí
+												thư, phó bí thư chi đoàn, BCH đoàn Học viện/khoa; BCH Hội
+												sinh viên Học viện/khoa; chủ nhiệm, phó chủ nhiệm các các
+												Câu lạc bộ, đội nhóm trực thuộc Học viện/khoa được tập thể
+												sinh viên và đơn vị quản lý ghi nhận hoàn thành nhiệm vụ.<i>(cộng
+													4đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputGiuChucVu"
+													th:onclick="clickAndPlusFour(this.id)"
+													th:field="*{giu_chuc_vu}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointGiuChucVu">0</div>
+										</div>
+
+										<div class="form-group row">
+											<label for="inputThamGiaCLB" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;Thành
+												viên tham gia các Câu lạc bộ, đội nhóm trực thuộc Học viện
+												/khoa được tập thể sinh viên và đơn vị quản lý ghi nhận hoàn
+												thành tốt nhiệm vụ; sinh viên tham gia tổ chức các chương
+												trình, là cộng tác viên tham gia tích cực vào các hoạt động
+												chung cấp Học viện,<i>(cộng 3đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox" id="inputThamGiaCLB"
+													th:onclick="clickAndPlusThree(this.id)"
+													th:field="*{tham_gia_clb}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointThamGiaCLB">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Đạt -->
+										<!-- 												thành tích cao trong học tập và NCKH:</label> -->
+										<!-- 											<div class="col-sm-3"></div> -->
+										<!-- 											<div class="col-sm-1"></div> -->
+										<!-- 										</div> -->
+
+										<!--                                     <div class="form-group row"> -->
+										<!--                                         <label for="inputHocLuc" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Học -->
+										<!--                                             lực (Xuất sắc, Giỏi) <i>(cộng 10đ)</i></label> -->
+										<!--                                         <div class="col-sm-3"> -->
+										<!--                                             <input class="checkbox" type="checkbox" id="inputHocLuc" -->
+										<!--                                                    th:onclick="clickAndPlusTen(this.id)" -->
+										<!--                                                    th:field="*{hoc_luc_gioi_xuat_sac}"> -->
+										<!--                                         </div> -->
+										<!--                                         <div class="col-sm-1 plusPoint" id="pointHocLuc">0</div> -->
+										<!--                                     </div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputChungChiTiengAnh" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Có -->
+										<!-- 												chứng chỉ tiếng Anh vượt quy định <i>(cộng 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputChungChiTiengAnh" -->
+										<!-- 													th:onclick="clickAndPlusFive(this.id)" -->
+										<!-- 													th:field="*{chung_chi_tieng_Anh}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 plusPoint" id="pointChungChiTiengAnh">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputThamGiaCuocThi" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Tham -->
+										<!-- 												gia các cuộc thi chuyên môn như Procon, Olympic, An toàn -->
+										<!-- 												thông tin ... <i>(cộng 2đ/lần)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input type="number" class="form-control" -->
+										<!-- 													id="inputThamGiaCuocThi" placeholder="Số lần" -->
+										<!-- 													th:onchange="plusTwoPerTime(this.id)" -->
+										<!-- 													th:field="*{tham_gia_cuoc_thi}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 plusPoint" id="pointThamGiaCuocThi">0</div> -->
+										<!-- 										</div> -->
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputDatGiaiChuyenMon" -->
+										<!-- 												class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Đạt -->
+										<!-- 												giải tại các cuộc thi chuyên môn <i>(cộng 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputDatGiaiChuyenMon" -->
+										<!-- 													th:onclick="clickAndPlusFive(this.id)" -->
+										<!-- 													th:field="*{dat_giai_cuoc_thi}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 plusPoint" id="pointDatGiaiChuyenMon">0</div> -->
+										<!-- 										</div> -->
+
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputThamGiaNCKH" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+Tham -->
+										<!-- 												gia NCKH (không phải là SV NVCL) <i>(cộng 5đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" -->
+										<!-- 													id="inputThamGiaNCKH" -->
+										<!-- 													th:onclick="clickAndPlusFive(this.id)" -->
+										<!-- 													th:field="*{tham_gia_NCKH}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 plusPoint" id="pointThamGiaNCKH">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<label for="inputDatGiaiNCKH" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sinh
+												viên đạt thành tích đặc biệt trong học tập, rèn luyện: 3
+												điểm - Đạt giải thưởng trong nghiên cứu khoa học, các cuộc
+												thi Olympic các cấp. - Đạt huy chương, giấy khen, giải
+												thưởng các cấp về văn hóa, văn nghệ, thể thao, phòng chống
+												các tệ nạn xã hội, hoạt động vì cộng đồng... <i>(cộng
+													3đ)</i>
+											</label>
+											<div class="col-sm-3">
+												<input class="checkbox" type="checkbox"
+													id="inputDatGiaiNCKH"
+													th:onclick="clickAndPlusThree(this.id)"
+													th:field="*{dat_giai_NCKH}">
+											</div>
+											<div class="col-sm-1 plusPoint" id="pointDatGiaiNCKH">0</div>
+										</div>
+
+										<!-- 										<div class="form-group row"> -->
+										<!-- 											<label for="inputKetNapDang" class="col-sm-8 col-form-label">&nbsp;&nbsp;&nbsp;&nbsp;-Được -->
+										<!-- 												kết nạp đảng <i>(cộng 10đ)</i> -->
+										<!-- 											</label> -->
+										<!-- 											<div class="col-sm-3"> -->
+										<!-- 												<input class="checkbox" type="checkbox" id="inputKetNapDang" -->
+										<!-- 													th:onclick="clickAndPlusTen(this.id)" -->
+										<!-- 													th:field="*{ket_nap_Dang}"> -->
+										<!-- 											</div> -->
+										<!-- 											<div class="col-sm-1 plusPoint" id="pointKetNapDang">0</div> -->
+										<!-- 										</div> -->
+
+										<div class="form-group row">
+											<div class="col-sm-11" id="totalPoint5">Điểm kết luận
+												của 5. [0, 10]</div>
+											<div class="col-sm-1 benchmark" id="totalPointFinal5">0</div>
+										</div>
+									</div>
+
+									<div class="seperator" style="padding-bottom: 170px;"></div>
+
+									<div id="part6" class="evaluationFormFooter studentPoint">
+										<div>
+											<div class="form-group row form-group-margin totalResult">
+												<div class="col-sm-11" id="totalPointAll">Tổng cộng
+													(1.+2.+3.+4.+5.) [0, 100]</div>
+												<input type="hidden" class="form-control"
+													th:field="*{totalPoint}"> <input type="number"
+													class="form-control col-sm-1 benchmark"
+													id="totalPointFinalAlll" th:value="*{totalPoint}" disabled>
+											</div>
+
+											<div class="seperator"></div>
+
+											<div class="form-group row" style="margin-top: 10px">
+												<div class="col-sm-10" id="totalPointAll">Xếp loại :</div>
+												<div class="col-sm-2 text-info" id="rank">None</div>
+											</div>
+										</div>
+
+										<div class="form-group row totalAndRank">
+											<div class="col-sm-8"></div>
+											<div th:if="*{statusNeedFill}" class="col-sm-2">
+												<div>
+													<button type="submit" class="btn btn-success formButton">Gửi</button>
+												</div>
+											</div>
+											<div th:unless="*{statusNeedFill}" class="col-sm-2">
+												<div>
+													<button type="submit" class="btn btn-secondary formButton"
+														disabled>Đã gửi</button>
+												</div>
+											</div>
+											<div class="col-sm-2">
+												<a th:href="@{/student}"
+													class="btn btn-secondary formButton" style="color: white;">Trở
+													lại</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div th:unless="${exists}">
+			<th:block th:replace="~{fragment/noSemester :: ${noSemester}}"></th:block>
+		</div>
+
+
+	</main>
+
+	<th:block th:replace="~{fragment/footer :: footer}"></th:block>
 </body>
 </html>

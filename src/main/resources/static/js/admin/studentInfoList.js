@@ -23,10 +23,10 @@ $(document).ready(function () {
     $("#updateHeader").attr("class", "");
 });
 
-$('#studentInfoList tr').each(function (index, tr) {
-    str = $(tr).find('.studentClass').text();
-    let studentSchoolYear = str.substring(0, 7);
-    let studentClass = str.substring(8);
-    $(tr).find('.studentSchoolYear').html(studentSchoolYear);
-    $(tr).find('.studentClass').html(studentClass);
-});
+//$('#studentInfoList tr').each(function (index, tr) {
+//    str = $(tr).find('.studentClass').text();
+//    let studentSchoolYear = str.substring(0, 7);
+//    let studentClass = str.substring(8);
+//    $(tr).find('.studentSchoolYear').html(studentSchoolYear);
+//    $(tr).find('.studentClass').html(studentClass);
+//});

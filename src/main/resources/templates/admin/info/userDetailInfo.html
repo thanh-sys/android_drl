@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/js/admin/studentDetailInfo.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+
+    <div class="main">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="pull-left">
+                    <i class="fas fa-pen-alt"></i>
+                    <span>Cập nhật thông tin tài khoản</span>
+                </h1>
+            </div>
+            <div class="col-sm-12">
+                <form action="#" method="post" th:action="@{/saveUser}">
+                    <div class="form-group row">
+                        <div class="col-sm-4">
+                            &lt;!&ndash; Lấy thông tin tài khoản &ndash;&gt;
+                            <input type="hidden" class="form-control" th:field="*{user.username}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputUsername" class="col-sm-2 col-form-label">Ten dang nhap</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="inputUsername" th:field="*{user.username}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputActive" class="col-sm-2 col-form-label">Active</label>
+                        <div class="col-sm-4">
+                            <input type="checkbox" class="form-control" th:field="*{user.active}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" th:field="*{user.password}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputRoles" class="col-sm-2 col-form-label">Roles</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" th:field="*{user.roles}">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary col-sm-1">Lưu</button>
+                </form>
+
+                <!-- <form action="#" method="post" th:action="@{/saveStudent}">
+                    <input type="hidden" class="form-control" th:field="*{student.id}">
+                    <input type="text" class="form-control" th:field="*{student.user.username}" disabled>
+                    <input type="text" class="form-control" th:field="*{student.fullName}">
+                    <input type="text" class="form-control" th:field="*{student.email}">
+                    <input type="text" class="form-control" th:field="*{student.classes.name}" disabled>
+                    <input type="text" class="form-control" th:field="*{student.address}">
+                    <input type="text" class="form-control" th:datetime="*{student.birthday}">
+                    <input type="text" class="form-control" th:field="*{student.country}">
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </form> -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

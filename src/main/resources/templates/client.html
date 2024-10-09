@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href='http://fonts.googleapis.com/css?family=Roboto'
+	rel='stylesheet' type='text/css' />
+<style>
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+}
+</style>
+</head>
+<body>
+	<p th:text="${'Xin chào, ' + name}"></p>
+	<p>Chúng tôi xin thông báo rằng thời hạn hoàn thành đánh giá điểm
+		rèn luyện của bạn đang đến gần.</p>
+	<p>
+		Thời hạn hoàn thành phiếu đánh giá: <b th:text="${deadline}"></b>
+	</p>
+	<p>Vui lòng đăng nhập vào hệ thống để hoàn thành việc đánh giá
+		trước thời hạn này.</p>
+
+	<p>Đây là email tự động, vui lòng không trả lời.</p>
+	<p>Trân trọng,</p>
+	<p>Phòng Công tác Sinh viên</p>
+</body>
+</html>

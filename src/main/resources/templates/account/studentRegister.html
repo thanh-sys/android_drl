@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout :: main-fragment(
+                                          ~{:: title},
+                                          'full-header',
+                                          'nav',
+                                          'footer',
+                                          ~{:: #css-resources},
+                                          ~{:: #js-resources},
+                                          ~{:: #main-content}
+                                         )}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ptit Training Point - Đăng ký sinh viên</title>
+<th:block id="css-resources">
+	<link rel="stylesheet" th:href="@{/css/common/main.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/account/account.css}">
+</th:block>
+</head>
+<body>
+	<main id="main-content">
+		<div class="login-form">
+			<div class="login-title">
+				<span>Đăng ký sinh viên</span>
+			</div>
+
+			<div class="box-content">
+				<form method="post" action="/register/studentRegister">
+
+					<!-- Địa chỉ -->
+
+
+					<div class="form-group">
+						<label for="address">Địa chỉ</label> <input type="text"
+							id="address" name="address" class="form-control"
+							placeholder="Địa chỉ" required>
+					</div>
+
+					<!-- Ngày sinh -->
+					<div class="form-group">
+						<label for="birthdate">Ngày sinh</label> <input type="date"
+							id="birthdate" name="birthdate" class="form-control" required>
+					</div>
+
+					<div class="form-group">
+						<label for="birthplace">Nơi sinh</label> <input type="text"
+							id="birthplace" name="birthplace" class="form-control"
+							placeholder="Nơi sinh" required>
+					</div>
+
+					<!-- Email -->
+					<div class="form-group">
+						<label for="email">Email</label> <input type="email" id="email"
+							name="email" class="form-control" placeholder="Email" required>
+					</div>
+
+					<!-- Họ và tên -->
+					<div class="form-group">
+						<label for="fullName">Họ và tên</label> <input type="text"
+							id="fullName" name="fullName" class="form-control"
+							placeholder="Họ và tên" required>
+					</div>
+
+					<!-- Lớp -->
+					<div class="form-group">
+						<label for="classes">Lớp</label> <select id="classes" name="classes"
+							class="form-control" required>
+							<option value="">Chọn lớp</option>
+							<!-- Danh sách lớp sẽ được thêm động từ controller -->
+							<option th:each="class : ${classes}" th:value="${class.name}"
+								th:text="${class.name}"></option>
+						</select>
+					</div>
+
+					<!-- Chức vụ -->
+					<div class="form-group">
+						<label>Chức vụ</label>
+						<div>
+							<input type="radio" id="classLeader" name="role"
+								value="ROLE_PRESIDENT" required> <label for="classLeader">Lớp
+								trưởng</label>
+						</div>
+						<div>
+							<input type="radio" id="student" name="role" value="ROLE_STUDENT">
+							<label for="student">Sinh viên</label>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-success">Đăng ký</button>
+				</form>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

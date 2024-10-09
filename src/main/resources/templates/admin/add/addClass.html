@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ptit Training Point - Thêm lớp</title>
+<th:block id="css-resources">
+	<link rel="stylesheet" th:href="@{/css/common/main.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/account/account.css}">
+</th:block>
+</head>
+<body>
+	<main id="main-content">
+		<div class="login-form">
+			<div class="login-title">
+				<span>Thêm lớp</span>
+			</div>
+
+			<div class="box-content">
+				<form method="post" action="/admin/add/addClass">
+
+					<!-- Niên khóa (Year selection) -->
+					<div class="form-group">
+						<label for="year">Niên khóa</label> <select id="year" name="year"
+							class="form-control" required>
+							<option th:each="year : ${years}" th:value="${year}"
+								th:text="${year}"></option>
+						</select>
+					</div>
+
+					<!-- Ngành của lớp (Department selection) -->
+					<div class="form-group">
+						<label for="major">Ngành của lớp</label> <select id="major"
+							name="major" class="form-control" required>
+							<option value="CQCN">Công nghệ thông tin</option>
+							<option value="QTKD">Quản trị kinh doanh</option>
+							<option value="KTPM">Kỹ thuật phần mềm</option>
+							<!-- Add more options as necessary -->
+						</select>
+					</div>
+
+					<!-- Cố vấn học tập (Advisor selection) -->
+					<div class="form-group">
+						<label for="consultant">Cố vấn học tập</label> <select
+							id="consultant" name="consultant" class="form-control" required>
+							<option th:each="consultant : ${consultants}"
+								th:value="${consultant.id}"
+								th:text="${consultant.fullName}"></option>
+						</select>
+					</div>
+
+					<!-- Lựa chọn lớp (Radio box for class type) -->
+					<div class="form-group">
+						<label>Loại lớp</label><br> <input type="radio" id="regular"
+							name="classType" value="D" checked> <label
+							for="regular">Lớp thường</label><br> <input type="radio"
+							id="highQuality" name="classType" value="E"> <label
+							for="highQuality">Lớp chất lượng cao</label>
+					</div>
+
+					<button type="submit" class="btn btn-success">Thêm lớp</button>
+				</form>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

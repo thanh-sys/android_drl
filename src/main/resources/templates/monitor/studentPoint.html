@@ -50,6 +50,7 @@
                     <th scope="col">Xếp loại</th>
                     <th scope="col">Điểm rèn luyện</th>
                     <th scope="col">Trạng thái</th>
+                    <th id="evaluationFormDetailHeader">Phiếu đánh giá</th>
                 </tr>
                 </thead>
                 <tbody id="listOfStudentPoint">
@@ -59,6 +60,10 @@
                     <td th:text="${list.graded}"></td>
                     <td th:text="${list.totalPoint}"></td>
                     <td th:text="${list.status}"></td>
+       
+                    <td><a class="detailLink"
+                           th:href="@{#}">Xem chi tiết</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

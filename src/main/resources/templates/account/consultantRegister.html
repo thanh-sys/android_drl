@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ptit Training Point - Đăng ký</title>
+<th:block id="css-resources">
+	<link rel="stylesheet" th:href="@{/css/common/main.css}">
+	<link rel="stylesheet" th:href="@{/css/common/footer.css}">
+	<link rel="stylesheet" th:href="@{/css/account/account.css}">
+</th:block>
+</head>
+<body>
+	<main id="main-content">
+		<div class="login-form">
+			<div class="login-title">
+				<span>Đăng ký Tài khoản cố vấn học tập</span>
+			</div>
+
+			<div class="box-content">
+				<form method="post" action="/register/consultantRegister">
+
+					<div class="form-group">
+						<label for="email">Email</label> <input type="email" id="email"
+							name="email" class="form-control" placeholder="Email" required>
+					</div>
+					<div class="form-group">
+						<label for="fullName">Tên đầy đủ</label> <input type="text"
+							id="fullName" name="fullName" class="form-control"
+							placeholder="Tên đầy đủ" required>
+					</div>
+					<div class="form-group">
+						<label for="faculty">Khoa</label> <input type="text" id="faculty"
+							name="faculty" class="form-control" placeholder="Khoa" required>
+					</div>
+
+					<button type="submit" class="btn btn-success">Đăng ký</button>
+				</form>
+			</div>
+
+		</div>
+	</main>
+</body>
+</html>

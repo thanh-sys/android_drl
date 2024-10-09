@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{/layout/layout :: main-fragment(
+                                                ~{:: title},
+                                                'full-header',
+                                                'nav',
+                                                'footer',
+                                                ~{:: #css-resources},
+                                                ~{:: #js-resources},
+                                                ~{:: #main-content}
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Training Point</title>
+    <th:block id="css-resources">
+        <link rel="stylesheet" th:href="@{/css/common/main.css}">
+        <link rel="stylesheet" th:href="@{/css/common/footer.css}">
+        <link rel="stylesheet" th:href="@{/css/admin/admin.css}">
+        <link rel="stylesheet" th:href="@{/vendor/DataTable/datatables.min.css}">
+    </th:block>
+
+    <th:block id="js-resources">
+        <script type="text/javascript" th:src="@{/js/admin/userInfoList.js}"></script>
+        <script type="text/javascript" th:src="@{/js/common/navigation.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/jquery/jquery-3.6.0.min.js}"></script>
+        <script type="text/javascript" th:src="@{/vendor/DataTable/datatables.min.js}"></script>
+    </th:block>
+</head>
+<body>
+<main id="main-content">
+    <th:block th:replace="~{fragment/adminNav :: ${adminNav}}"></th:block>
+
+    <div class="main">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>active</th>
+                    <th>roles</th>
+                  
+                    <th id="updateHeader">Cập nhật</th>
+                </tr>
+                </thead>
+                <tbody id="userInfoList">
+                <tr th:each="list : ${list}">
+                    <td class="userUserame" th:text="${list.username}"></td>
+                    <td class="userActive" th:text="${list.active}"></td>
+                    <td class="userRoles" th:text="${list.roles}"></td>
+                   
+                    <td>
+                        <a th:href="@{/admin/userDetailInfo/{username}(username = ${list.username})}">
+                            <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                    data-placement="top" title="Edit">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12">
+            <a th:href="@{/register/consultantRegister}" class="btn btn-success formButton" style="color: white;">Thêm tài khoản cố vấn học tập</a>
+       </div>
+       
+        <div class="col-sm-12">
+            <a th:href="@{/register/studentRegister}" class="btn btn-success formButton" style="color: white;">Thêm tài khoản sinh viên</a>
+       </div>
+       
+        <div class="col-sm-12">
+            <a th:href="@{/register/studentRegisterByExcel}" class="btn btn-success formButton" style="color: white;">Thêm tài khoản sinh viên hàng loạt</a>
+       </div> 
+    </div>
+</main>
+
+<th:block th:replace="~{fragment/footer :: footer}"></th:block>
+</body>
+</html>

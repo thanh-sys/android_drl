@@ -19,3 +19,21 @@ $(document).ready(function () {
         stateSave: true
     });
 });
+
+$(document).ready(function() {
+    // Lấy tất cả các phần tử chứa trạng thái của sinh viên
+    let allApproved = true;
+    $('#studentListListOfAdmin .formStatus').each(function() {
+        if ($(this).text().trim() !== "Đã phê duyệt") {
+            allApproved = false;
+            return false; // Dừng vòng lặp nếu tìm thấy sinh viên không "Đã phê duyệt"
+        }
+    });
+
+    // Nếu tất cả đều "Đã phê duyệt", enable nút
+    if (allApproved) {
+        $('#exportButton').css('pointer-events', 'auto');
+        $('#exportButton').css('opacity', '1');
+        $('#exportButton').removeClass('disabled-link');
+    }
+});

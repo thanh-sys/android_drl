@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{/layout/layout :: main-fragment(
                                                 ~{:: title},
@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UET Training Point</title>
+    <title>  Training Point</title>
     <th:block id="css-resources">
         <link rel="stylesheet" th:href="@{/css/common/main.css}">
         <link rel="stylesheet" th:href="@{/css/common/footer.css}">
@@ -51,9 +51,9 @@
                     <li role="presentation" class="active">
                         <a href="#Section1" aria-controls="home" class="active" role="tab" data-toggle="tab">Tạo đợt đánh giá mới</a>
                     </li>
-                    <li role="presentation">
-                        <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Các đợt đánh giá trước</a>
-                    </li>
+<!--                     <li role="presentation"> -->
+<!--                         <a href="#Section2" aria-controls="profile" role="tab" data-toggle="tab">Các đợt đánh giá trước</a> -->
+<!--                     </li> -->
                 </ul>
                 <div class="tab-content tabs" style="border: 1px solid rgb(9, 157, 94); border-top: none;">
                     <div role="tabpanel" class="tab-pane in active" id="Section1">
@@ -77,21 +77,21 @@
 
                                     <div style="border-bottom: 1px outset gray;"></div>
 
-                                    <div class="col-sm-12" style="margin-top: 30px">
-                                        <h4>Thêm các danh sách thông báo từ Nhà trường</h4>
-                                        <div id="newSession">
-                                            <div class="col-sm-12" style="margin-top: 20px;">
-                                                <div class="searchBlock col-sm-6" style="display: flex;">
-                                                    <label for="searchFileName" class="col-sm-3 searchLabel">Tìm kiếm</label>
-                                                    <input class="search col-sm-9" id="searchFileName">
-                                                </div>
-                                            </div>
+<!--                                     <div class="col-sm-12" style="margin-top: 30px"> -->
+<!--                                         <h4>Thêm các danh sách thông báo từ Nhà trường</h4> -->
+<!--                                         <div id="newSession"> -->
+<!--                                             <div class="col-sm-12" style="margin-top: 20px;"> -->
+<!--                                                 <div class="searchBlock col-sm-6" style="display: flex;"> -->
+<!--                                                     <label for="searchFileName" class="col-sm-3 searchLabel">Tìm kiếm</label> -->
+<!--                                                     <input class="search col-sm-9" id="searchFileName"> -->
+<!--                                                 </div> -->
+<!--                                             </div> -->
         
-                                            <ul class="list col-sm-12" id="newUploadList"></ul>
-                                        </div>
-                                    </div>
+<!--                                             <ul class="list col-sm-12" id="newUploadList"></ul> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
 
-                                    <div style="border-bottom: 1px outset gray;"></div>
+<!--                                     <div style="border-bottom: 1px outset gray;"></div> -->
 
                                     <div class="col-sm-12">
                                         <input type="hidden" th:field="*{semesterNo}">
