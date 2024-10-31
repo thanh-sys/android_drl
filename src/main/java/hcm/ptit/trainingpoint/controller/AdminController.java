@@ -231,7 +231,7 @@ public class AdminController {
 	@GetMapping("/admin/add/addClass")
 	public String showFormAddClass(Model model) {
 		 int currentYear = Year.now().getValue();
-		    List<Integer> years = IntStream.rangeClosed(currentYear - 5, currentYear + 5)
+		    List<Integer> years = IntStream.rangeClosed(currentYear - 4, currentYear + 4)
 		                                   .boxed()
 		                                   .collect(Collectors.toList());
 
